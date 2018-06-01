@@ -1,4 +1,4 @@
-from flask import Blueprint, Response, jsonify, request, render_template, session
+from flask import Blueprint, Response, jsonify, request, render_template, session, escape
 from time import strftime
 import json
 
@@ -42,3 +42,24 @@ def fetchStudentsFromBatch(batchid):
                 }
                 students.append(arr)
             return jsonify(students)
+
+@mod_api.route("/student/scores/<studentId>", methods=["GET"])
+def fetchGrades(studentId):
+    if session.get("user") == True and session['type'] == "admin":
+        from app.Blueprints import db
+        from app.models.Grades import Grades
+        from app.models.Test import Test
+        all_tests = db.session.query(Grades).filter(Grades.student_id == studentId).all()
+        csv = "test,grade,module,date" + escape("\n")
+        for i in all_tests:
+            test = db.session.query(Test).filter(Test.id == i.test_id).first()
+            print(test.module)
+            csv = csv + str(test.name) + "," + str(i.grade) + "," + str(test.module) + "," + str(test.date) + escape("\n")
+            print(i.grade)
+        return str(csv)
+
+    else:
+        return "Error"
+
+
+ 
