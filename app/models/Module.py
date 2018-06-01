@@ -10,7 +10,7 @@ class Module(db.Model):
     desc = db.Column("desc", db.Unicode)
     duration = db.Column("duration", db.Integer)
     maxMarks = db.Column("maximum_marks", db.Float)
-    
+
     link = db.relationship('Course', secondary = map, backref = db.backref('modules'), lazy = 'dynamic')
 
     def __init__(self, name, desc, duration):

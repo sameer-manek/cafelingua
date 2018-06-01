@@ -2,19 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>admin login</title>
+    <title>Admin login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="maximum-scale=1, width=1080">
+    <link rel="shortcut icon" href="{{url_for("static", filename = "img/icon.png")}}" />
+    <link rel="stylesheet" href="{{url_for("static", filename = "scss/admin.min.css")}}" />
 </head>
 <body>
+<div align="center" class="loginPage">
+  <div class="containerOne"></div>
 
-<h1>admin login</h1>
+  <div class="containerTwo">
+    <img src="{{url_for("static", filename = "img/logox500.png")}}" alt="logo">
+    <div class="ErrorMessage" style="display:none;">
+      <p>{{msg}}</p>
+    </div>
+    <form action="/admin/login" method="post">
+        <p>Email</p>
+        <input type="email" name="email" placeholder="Enter Your Email" /><br>
+        <br>
+        <p>Password</p>
+        <input type="password" name="passwd" placeholder="Enter Your Password" /><br>
+        <button>Login<i class="fas fa-long-arrow-alt-right"></i></button>
+        <br>
+    </form>
+    <div class="bottomText"><a href="http://cafelingua.in"><i class="fas fa-caret-left"></i>Back To CafeLingua.in</a></div>
+  </div>
 
-{{msg}}
-
-<form action="/admin/login" method="post">
-    <input type="email" placeholder="email" name="email" /><br>
-    <input type="password" placeholder="password" name="passwd" /><br>
-    <button>login</button>
-</form>
-
+  <div class="containerFooter">
+    <p>Copyright © 2018 CafeLingua. All Rights Reserved.</p>
+  </div>
+</div>
 </body>
 </html>

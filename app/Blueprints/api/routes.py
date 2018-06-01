@@ -42,3 +42,13 @@ def fetchStudentsFromBatch(batchid):
                 }
                 students.append(arr)
             return jsonify(students)
+
+@mod_api.route("/course/about/<course_id>/avenage/")
+def course_average(course_id):
+    if session.get('user') == True and session.get('type') == 'admin':
+        # modules in that course
+        # no of students in the test
+        # average of their scores
+        # average of all the students
+
+    return ""
