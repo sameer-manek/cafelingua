@@ -1,31 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>cafelingua : about student</title>
-</head>
-<body>
-    <h1>Students</h1>
-    <ul>
-        <li><a href="#">browse students</a></li>
-        <li><a href="/student/register">new student</a></li>
-    </ul>
+{% extends 'admin/master.html' %}
 
-    <h2>about {{student.fname}} {{student.lname}}</h2>
+{% block head %}
+{{ super() }}
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <h2>About {{student.fname}} {{student.lname}}</h2>
     <table>
         <tbody>
         <tr>
             <th>Name: </th>
-            <td>{{student.fname}} {{student.lname}}</td>
+            <td>{{student.fname | capitalize}} {{student.lname | capitalize}}</td>
         </tr>
 
         <tr>
             <th>RFID: </th>
             <td>{{student.RFID}}</td>
         </tr>
-
-        <tr></tr>
+		<tr>
+			<th>Email: </th>
+			<td>{{student.email}}</td>
+		</tr>
+		<tr>
+			<th>Phone: </th>
+			<td>{{student.mobile}}</td>
+		</tr>
+		<tr>
+			<th>Date of Birth:</th>
+			<td>{{student.DOB}}</td>
+		</tr>
+<!--		<tr>
+			<th>Picture</th>
+			<td><img src={{ url_for("static", filename=student.picture) }}></td>
+</tr> -->
         </tbody>
     </table>
-</body>
-</html>
+	<div>
+		<h1>Performance:</h1>
+		<svg width="960" height="500"></svg>
+
+	</div>
+
+<script>
+
+// Script for generating Student Performance chart
+// To change size, only change the height, width of the svg element above
+window.onload = function () {
+	var mod1 = "#e6550d";
+	var mod2 = "#756bb1";
+	var mod3 = "#31a354";
+
+	text = ""
+		fetch("/api/student/scores/{{student.id}}", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph()}) )
+
+		function createGraph() {
+
+			d = d3.csvParse(text)
+
+				var svg = d3.select("svg"),
+    		margin = {top: 20, right: 20, bottom: 30, left: 40},
+    		width = +svg.attr("width") - margin.left - margin.right,
+    		height = +svg.attr("height") - margin.top - margin.bottom;
+
+			var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    		y = d3.scaleLinear().rangeRound([height, 0]);
+
+			var g = svg.append("g")
+    			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			grade = []
+				d.forEach( function(i) {
+					console.log(i)
+						grade.push(i.grade) 
+				})
+
+  			x.domain(d.map(function(d) { return d.test; }));
+  			y.domain([0, 9]);
+
+  			g.append("g")
+      			.attr("class", "axis axis--x")
+      			.attr("transform", "translate(0," + height + ")")
+      			.call(d3.axisBottom(x));
+
+  			g.append("g")
+      			.attr("class", "axis axis--y")
+      			.call(d3.axisLeft(y).ticks(9))
+    			.append("text")
+      			.attr("transform", "rotate(-90)")
+      			.attr("y", 6)
+      			.attr("dy", "0.71em")
+      			.attr("text-anchor", "end")
+      			.text("Frequency");
+
+  			g.selectAll(".bar")
+    			.data(d)
+    			.enter().append("rect")
+      			.attr("class", "bar")
+      			.attr("x", function(d) { return x(d.test); })
+      			.attr("y", function(d) { return y(d.grade); })
+      			.attr("width", x.bandwidth())
+				.attr("fill", (d) => {
+					if (d.module=="0") {
+						return mod1
+					}
+					if (d.module=="1") {
+						return mod2
+					}
+					if (d.module=="2") {
+						return mod3
+					}
+
+
+				}	)
+      		.attr("height", function(d) { return height - y(d.grade); });
+		}
+
+}
+
+
+
+
+
+</script>
+
+
+
+{% endblock %}
