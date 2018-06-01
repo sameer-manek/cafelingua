@@ -30,16 +30,14 @@
           </tr>
           </thead>
           <tbody>
-            <tr>
-                <td>1</td>
-                <td>Test 1</td>
-                <td>11-11-1997</td>
-                <td>
-                  <a href="#">About</a>
-                  <a href="#">Delete</a>
-                  <a href="#">Update</a>
-                </td>
-            </tr>
+          {% for test in tests %}
+              <tr>
+                  <td>{{loop.index}}</td>
+                  <td>{{test.name}}</td>
+                  <td>{{test.date}}</td>
+                  <td><a href="#">Grade</a>&nbsp; <a href="#">Update</a> &nbsp; <a href="/test/about/{{test.id}}">About</a></td>
+              </tr>
+          {% endfor %}
           </tbody>
       </table>
 

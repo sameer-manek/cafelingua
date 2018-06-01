@@ -31,30 +31,20 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Batch 1</td>
-            <td>11-11-1997</td>
-            <td>9:00 AM</td>
-            <td>1 Hour</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Batch 2</td>
-            <td>11-11-1997</td>
-            <td>9:00 AM</td>
-            <td>1 Hour</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
+          {% for batch in batches %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{batch.name}}</td>
+                <td>{{batch.start_date}}</td>
+                <td>{{batch.start_time}}</td>
+                <td>{{batch.duration}}</td>
+                <td>
+                  <a href="#">About</a>
+                  <a href="#">Delete</a>
+                  <a href="#">Update</a>
+                </td>
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

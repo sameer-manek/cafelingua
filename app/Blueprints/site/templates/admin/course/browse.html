@@ -29,33 +29,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Courses 1</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Courses 2</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Courses 2</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
+            {% for course in courses %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{course.name}}</td>
+                    <td><a href="#">update</a> <a href="/course/about/{{course.id}}">About</a> <a href="/course/delete/{{course.id}}">delete</a></td>
+                </tr>
+            {% endfor %}
         </tbody>
       </table>
     </div>

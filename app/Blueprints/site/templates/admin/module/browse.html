@@ -31,39 +31,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Modules 1</td>
-            <td>Modules Description</td>
-            <td>10 Days</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Modules 1</td>
-            <td>Modules Description</td>
-            <td>10 Days</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Modules 1</td>
-            <td>Modules Description</td>
-            <td>10 Days</td>
-            <td>
-              <a href="#">About</a>
-              <a href="#">Delete</a>
-              <a href="#">Update</a>
-            </td>
-          </tr>
+            {% for module in modules: %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{module.name}}</td>
+                    <td>{{module.desc}}</td>
+                    <td>{{module.duration}}</td>
+                    <td><a href="/module/update/{{module.id}}">update</a>&nbsp;<a href="/module/delete/{{module.id}}">delete</a></td>
+                </tr>
+            {% endfor %}
         </tbody>
       </table>
     </div>
