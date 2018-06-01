@@ -62,4 +62,9 @@ def fetchGrades(studentId):
         return "Error"
 
 
- 
+@mod_api.route("/course/report/<courseId>", methods=["GET"])
+def fetchCourseReport():
+    if session.get("user") == True and session['type'] == "admin":
+        pass
+    else:
+        return "Error"

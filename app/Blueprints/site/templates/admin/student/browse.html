@@ -28,7 +28,8 @@
               <th>last name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>actions</th>
+			  <th>Profile</th>
+              <th>Actions</th>
           </tr>
           </thead>
 
@@ -40,7 +41,8 @@
                       <td>{{student.lname}}</td>
                       <td>{{student.email}}</td>
                       <td>{{student.mobile}}</td>
-                      <td><a href="#">deactivate</a></td>
+                      <td><a href="/student/{{student.id}}/about">Profile</a></td>
+					  <td><a href="#">Deactivate</a></td>
                   </tr>
               {% endfor %}
           </tbody>
