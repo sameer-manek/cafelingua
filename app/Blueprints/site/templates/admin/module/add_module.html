@@ -2,24 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>add new module</title>
+    <title>Add Module</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="maximum-scale=1, width=1080">
+    <link rel="shortcut icon" href="../assets/img/icon.png">
+    <link rel="stylesheet" href="../assets/scss/admin.min.css">
 </head>
 <body>
-    <h1>Modules</h1>
-    <ul>
-        <li><a href="/module">browse modules</a></li>
-        <li><a href="/module/new">add modules</a></li>
-    </ul>
+  <div class="AdminDashboard">
+    <div class="CafeColor tab"></div>
+    <div class="MenuPanel tab">
+      <img src="../assets/img/logox500.png" alt="logo">
+      <div class="Menu">
+        <a href="#"><i class="fas fa-clipboard"></i><p>Dashboard</p></a>
+        <a href="#"><i class="fas fa-user"></i><p>Student</p></a>
+        <a href="#"><i class="fas fa-users"></i><p>Batches</p></a>
+        <a href="#"><i class="fas fa-bookmark"></i><p>Modules</p></a>
+        <a href="#"><i class="fas fa-book-open"></i><p>Courses</p></a>
+        <a href="#"><i class="fas fa-file-alt"></i><p>Tests</p></a>
+      </div>
+      <div class="LogoutButton">
+        <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+      </div>
+    </div>
+  </div>
 
-    <h2>Add new module</h2>
-    <form action="" method="post">
-        <div class="msg">
-            {{msg}}
-        </div>
-        <input type="text" name="name" placeholder="name of module" /><br><br>
-        <textarea name="desc" cols="30" rows="10" placeholder="description" style="resize: none;"></textarea><br><br>
-        <input type="text" name="days" max="4" placeholder="days" />days <br><br>
-        <button>Add module</button>
-    </form>
+  <div class="AddModule">
+    <div class="UserDetail">
+      <h3>Dr. Deepak Mashru</h3>
+      <img src="https://0.academia-photos.com/6365507/3086920/3632179/s200_deepak.mashru.jpg" alt="">
+      <!-- <p><i class="fas fa-angle-down"></i></p> -->
+    </div>
+
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Modules</h3>
+    </div>
+    <br><br>
+
+    <div class="Board">
+      <span class="button"><a href="#"><i class="fas fa-bookmark"></i><p>Browse Modules</p></a></span>
+      <br><br><br>
+      <p class="sub1"><i class="fas fa-chevron-right"></i>Add New Modules</p>
+      <br><br>
+
+      <div class="ModualForm">
+        <form action="/" method="post">
+          <input type="text" name="name" placeholder="Name of Module" /><br>
+          <textarea name="desc" cols="30" rows="10" placeholder="Description" style="resize: none;"></textarea><br>
+          <input type="text" name="days" max="4" placeholder="Days" /><br>
+          <button><i class="fas fa-plus-circle"></i>Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

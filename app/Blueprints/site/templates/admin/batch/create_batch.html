@@ -1,17 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>cafelingua : create batch</title>
+{% extends 'admin/master.html' %}
+{% block body %}
+  <div class="CreateBatch">
+    <div class="UserDetail">
+      <h3>Dr. Deepak Mashru</h3>
+      <img src="https://0.academia-photos.com/6365507/3086920/3632179/s200_deepak.mashru.jpg" alt="">
+      <!-- <p><i class="fas fa-angle-down"></i></p> -->
+    </div>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.timepicker.min.css') }}" />
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Create Batche</h3>
+      <br><br>
+      <div class="Board">
+        <span class="button"><a href="#"><i class="fas fa-user-friends"></i><p>Browse Batches</p></a></span>
+        <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Batch</p></a></span>
+        <br><br><br>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="{{ url_for('static', filename='js/jquery.timepicker.min.js') }}"></script>
-</head>
-<body>
+        <p class="sub1"><i class="fas fa-chevron-right"></i>Create New Batch</p>
+        <br><br>
+
+        <div class="BatchForm">
+          <form class="" action="/" method="post">
+            <input type="text" name="name" placeholder="Name" /><br>
+            <input type="time" name="time" placeholder="Select Time" /><br>
+            <input type="text" name="duration" placeholder="Duration (Minutes)" /><br>
+            <br>
+            <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Days</p>
+            <br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Monday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Tuesday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Wednesday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Thursday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Friday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Saturday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Sunday</label>
+            <button><i class="fas fa-plus-circle"></i>Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+<!--
 <h1>Batches</h1>
     <ul>
         <li><a href="#">browse batches</a></li>
@@ -51,6 +82,4 @@
         $("#timepicker").timepicker({
             timeFormat : 'H:i:s',
         })
-</script>
-</body>
-</html>
+</script> -->

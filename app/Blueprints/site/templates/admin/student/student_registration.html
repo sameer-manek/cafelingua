@@ -2,14 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>cafelingua : register student</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <title>Student Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="maximum-scale=1, width=1080">
+    <link rel="shortcut icon" href="../assets/img/icon.png">
+    <link rel="stylesheet" href="../assets/scss/admin.min.css">
 </head>
 <body>
-<h1>Students</h1>
+  <div class="AdminDashboard">
+    <div class="CafeColor tab"></div>
+    <div class="MenuPanel tab">
+      <img src="../assets/img/logox500.png" alt="logo">
+      <div class="Menu">
+        <a href="#"><i class="fas fa-clipboard"></i><p>Dashboard</p></a>
+        <a href="#"><i class="fas fa-user"></i><p>Student</p></a>
+        <a href="#"><i class="fas fa-users"></i><p>Batches</p></a>
+        <a href="#"><i class="fas fa-bookmark"></i><p>Modules</p></a>
+        <a href="#"><i class="fas fa-book-open"></i><p>Courses</p></a>
+        <a href="#"><i class="fas fa-file-alt"></i><p>Tests</p></a>
+      </div>
+      <div class="LogoutButton">
+        <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="AddStudent">
+    <div class="UserDetail">
+      <h3>Dr. Deepak Mashru</h3>
+      <img src="https://0.academia-photos.com/6365507/3086920/3632179/s200_deepak.mashru.jpg" alt="">
+      <!-- <p><i class="fas fa-angle-down"></i></p> -->
+    </div>
+
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Students</h3>
+    </div>
+    <br><br>
+
+    <div class="Board">
+      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Student</p></a></span>
+      <span class="button"><a href="#"><i class="fas fa-user"></i><p>Browse Students</p></a></span>
+      <br><br><br>
+      <p class="sub1"><i class="fas fa-chevron-right"></i>Register New Student</p>
+      <br><br>
+
+      <div class="StudentForm">
+        <form action="/" method="post">
+          <input type="text" placeholder="First Name" name="fname" /><br>
+          <input type="text" placeholder="Last Name" name="lname" /><br>
+          <input type="email" placeholder="Email" name="email" /><br>
+          <input type="text" placeholder="Phone Number" name="phone" /><br>
+          <input type="datetime-local" name="DOB" placeholder="Date of Birth"/><br>
+          <input type="text" name="RFID" placeholder="RFID Number" /><br>
+          <input type="text" name="source" placeholder="Source" /><br>
+          <button><i class="fas fa-plus-circle"></i>Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- <h1>Students</h1>
     <ul>
         <li><a href="/student">browse students</a></li>
         <li><a href="#">new student</a></li>
@@ -41,6 +92,6 @@
             yearRange : '1980:2005'
         });
   	} );
-</script>
+</script> -->
 </body>
 </html>

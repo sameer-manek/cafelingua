@@ -2,10 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cafelingua : tests</title>
+    <title>Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="maximum-scale=1, width=1080">
+    <link rel="shortcut icon" href="../assets/img/icon.png">
+    <link rel="stylesheet" href="../assets/scss/admin.min.css">
 </head>
 <body>
-    <h1>Tests</h1>
+  <div class="AdminDashboard">
+    <div class="CafeColor tab"></div>
+    <div class="MenuPanel tab">
+      <img src="../assets/img/logox500.png" alt="logo">
+      <div class="Menu">
+        <a href="#"><i class="fas fa-clipboard"></i><p>Dashboard</p></a>
+        <a href="#"><i class="fas fa-user"></i><p>Student</p></a>
+        <a href="#"><i class="fas fa-users"></i><p>Batches</p></a>
+        <a href="#"><i class="fas fa-bookmark"></i><p>Modules</p></a>
+        <a href="#"><i class="fas fa-book-open"></i><p>Courses</p></a>
+        <a href="#"><i class="fas fa-file-alt"></i><p>Tests</p></a>
+      </div>
+      <div class="LogoutButton">
+        <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="BrowseTest">
+    <div class="UserDetail">
+      <h3>Dr. Deepak Mashru</h3>
+      <img src="https://0.academia-photos.com/6365507/3086920/3632179/s200_deepak.mashru.jpg" alt="">
+      <!-- <p><i class="fas fa-angle-down"></i></p> -->
+    </div>
+
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Tests</h3>
+    </div>
+    <br><br>
+
+    <div class="Board">
+      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Test</p></a></span>
+      <span class="button"><a href="#"><i class="fas fa-file-alt"></i><p>Browse Test</p></a></span>
+      <br><br><br>
+      <p class="sub1"><i class="fas fa-chevron-right"></i>Carrently Added Tests</p>
+      <br><br>
+
+      <table border="1" cellpadding="2">
+          <thead>
+          <tr>
+              <th>No.</th>
+              <th>Test Name</th>
+              <th>Date</th>
+              <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>1</td>
+                <td>Test 1</td>
+                <td>11-11-1997</td>
+                <td>
+                  <a href="#">About</a>
+                  <a href="#">Delete</a>
+                  <a href="#">Update</a>
+                </td>
+            </tr>
+          </tbody>
+      </table>
+
+    </div>
+  </div>
+    <!-- <h1>Tests</h1>
     <ul>
         <li><a href="#">Browse tests</a></li>
         <li><a href="/test/new">new test</a></li>
@@ -27,10 +93,10 @@
                 <td>{{loop.index}}</td>
                 <td>{{test.name}}</td>
                 <td>{{test.date}}</td>
-                <td><a href="/test/grade/{{test.id}}">Grade</a>&nbsp; <a href="#">Update</a> &nbsp; <a href="/test/about/{{test.id}}">About</a></td>
+                <td><a href="#">Grade</a>&nbsp; <a href="#">Update</a> &nbsp; <a href="/test/about/{{test.id}}">About</a></td>
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> -->
 </body>
 </html>

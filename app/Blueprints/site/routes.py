@@ -357,9 +357,9 @@ def createTest():
 
 # create Subtest
 
-@mod_site("/test/<test_id>/subtest/new", methods = ['GET', 'POST'])
+@mod_site.route("/test/<test_id>/subtest/new", methods = ['GET', 'POST'])
 def create_subtest(test_id):
-    
+
     return ""
 
 @mod_site.route("/test/about/<id>")
