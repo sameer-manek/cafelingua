@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : add course</title>
+</head>
+<body>
+
+    <h1>Courses</h1>
+    <ul>
+        <li><a href="/course">Browse courses</a></li>
+        <li><a href="/course/new">new course</a></li>
+    </ul>
+
+    <h2>Add new Course</h2>
+    <div class="msg">{{msg}}</div>
+    <form action="" method="post">
+        <input type="text" name="name" placeholder="name of the course" /><br>
+        <h4>select courses:</h4>
+        {% for module in modules %}
+        <input type="checkbox" name="moduleList[]" value="{{module.id}}" id="mod{{module.id}}" /> <label
+            for="mod{{module.id}}">{{module.name}}</label><br>
+        {% endfor %}
+        <br><button>add course</button>
+    </form>
+
+</body>
+</html>

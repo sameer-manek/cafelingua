@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cafelingua : tests</title>
+</head>
+<body>
+    <h1>Tests</h1>
+    <ul>
+        <li><a href="#">Browse tests</a></li>
+        <li><a href="/test/new">new test</a></li>
+    </ul>
+
+    <h2>Carrently added tests:</h2>
+    <table border="1" cellpadding="2">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>date</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for test in tests %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{test.name}}</td>
+                <td>{{test.date}}</td>
+                <td><a href="/test/grade/{{test.id}}">Grade</a>&nbsp; <a href="#">Update</a> &nbsp; <a href="/test/about/{{test.id}}">About</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

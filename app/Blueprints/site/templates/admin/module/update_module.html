@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : update module</title>
+</head>
+<body>
+    <h1>Modules</h1>
+    <ul>
+        <li><a href="/module">browse modules</a></li>
+        <li><a href="/module/new">add modules</a></li>
+    </ul>
+
+    <h2>update {{module.name}} module</h2>
+    <div class="msg">{{msg}}</div>
+    <form action="" method="post">
+        <table cellpadding="5">
+            <tbody>
+                <tr>
+                    <td><label for="name">Name:</label></td>
+                    <td><input type="text" id="name" name="name" value="{{module.name}}"></td>
+                </tr>
+                <tr>
+                    <td><label for="desc">description:</label></td>
+                    <td><textarea name="desc" id="desc" cols="30" rows="10" style="resize: none;">{{module.desc}}</textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="duration">duration:</label></td>
+                    <td><input type="text" id="duration" name="duration" value="{{module.duration}}"> days</td>
+                </tr>
+            </tbody>
+        </table>
+        <button>update</button>
+    </form>
+</body>
+</html>

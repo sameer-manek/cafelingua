@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f7e50b58-9563-414f-b6d6-d25693e3da24" name="cafelingua" url="http://172.104.181.210">
+        <fileTransfer host="172.104.181.210" port="22" rootFolder="/sites/cafelingua" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

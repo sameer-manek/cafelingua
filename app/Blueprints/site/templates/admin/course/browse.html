@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : browse courses</title>
+</head>
+<body>
+    <h1>Courses</h1>
+    <ul>
+        <li><a href="#">Browse courses</a></li>
+        <li><a href="/course/new">new course</a></li>
+    </ul>
+
+    <h2>Currrently registered courses</h2>
+    <table border="1" cellpadding="2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{course.name}}</td>
+                    <td><a href="#">update</a> <a href="/course/about/{{course.id}}">About</a> <a href="/course/delete/{{course.id}}">delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

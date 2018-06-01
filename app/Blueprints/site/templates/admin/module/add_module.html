@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add new module</title>
+</head>
+<body>
+    <h1>Modules</h1>
+    <ul>
+        <li><a href="/module">browse modules</a></li>
+        <li><a href="/module/new">add modules</a></li>
+    </ul>
+
+    <h2>Add new module</h2>
+    <form action="" method="post">
+        <div class="msg">
+            {{msg}}
+        </div>
+        <input type="text" name="name" placeholder="name of module" /><br><br>
+        <textarea name="desc" cols="30" rows="10" placeholder="description" style="resize: none;"></textarea><br><br>
+        <input type="text" name="days" max="4" placeholder="days" />days <br><br>
+        <button>Add module</button>
+    </form>
+</body>
+</html>

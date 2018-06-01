@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : batches</title>
+</head>
+<body>
+    <h1>Batches</h1>
+    <ul>
+        <li><a href="#">browse batches</a></li>
+        <li><a href="/batch/new">add batch</a></li>
+    </ul>
+
+    <h2>Currently registereds batches</h2>
+    <table border="1" cellpadding="2">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>start date</th>
+            <th>time</th>
+            <th>duration</th>
+            <th>action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            {% for batch in batches %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{batch.name}}</td>
+                    <td>{{batch.start_date}}</td>
+                    <td>{{batch.start_time}}</td>
+                    <td>{{batch.duration}}</td>
+                    <td><a href="#">About</a>&nbsp;<a href="#">delete</a>&nbsp;<a href="#">update</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>cafelingua :: update test</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body>
+        <h1>Tests</h1>
+        <ul>
+            <li><a href="/test">Browse tests</a></li>
+            <li><a href="/test/new">new test</a></li>
+        </ul>
+
+        <h2>update test : {{test.name}}</h2>
+
+        <form action="" method="post">
+            <form action="" method="post">
+                <input type="text" name="name" placeholder="name" value="{{test.name}}" /><br><br>
+                <input type="text" name="date" id="datepicker" placeholder="date" value="{{test.date}}" /><br><br>
+                <label for="batch">Select Batch: &nbsp;</label>
+                <select name="batch" id="batch">
+                    {% for batch in batches %}
+                        <option value="{{batch.id}}">{{batch.name}}</option>
+                    {% endfor %}
+                </select><br><br>
+                <h4>Select Students:</h4>
+                <div id="loadStudents"></div>
+                <br><br>
+                <input type="text" name="type" value="{{test.type}}" placeholder="type of test" /><br><br>
+
+                <button>Confirm test</button>
+            </form>
+        </form>
+
+        <script>
+        	$( function() {
+            	$( "#datepicker" ).datepicker({
+                    dateFormat : 'yy-mm-dd',
+                    changeMonth : true,
+                    changeYear : true,
+                    yearRange : '1980:2005'
+                });
+          	} );
+
+        	function fetchStudents(){
+        	    var val = $("#batch option:selected").val();
+        	    $("#loadStudents").html("");
+        	    $.ajax({
+                    url: "/api/batch/students/"+val,
+                    dataType: "json",
+                    type: "post",
+                    data: {
+                        key: "94l5ezGDw7EsHF9a"
+                    },
+                    success: function(data){
+                        $.each(data, function(key, value){
+                            var div = '<input type="checkbox" name="StudentList[]" value="'+value['id']+'" />'+value['name']+'<br />';
+                            $("#loadStudents").append(div);
+                        })
+                    }
+                })
+            }
+
+        	$(document).ready(function(){
+        	   fetchStudents()
+            });
+
+        	$("#batch").change(function(){
+                fetchStudents()
+            });
+        </script>
+    </body>
+</html>

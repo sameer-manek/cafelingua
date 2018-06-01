@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : create batch</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.timepicker.min.css') }}" />
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.timepicker.min.js') }}"></script>
+</head>
+<body>
+<h1>Batches</h1>
+    <ul>
+        <li><a href="#">browse batches</a></li>
+        <li><a href="/batch/new">add batch</a></li>
+    </ul>
+
+    <h2>Create new batch</h2>
+    <div class="msg">
+        {{msg}}
+    </div>
+    <form action="" method="post">
+        <input type="text" name="name" placeholder="name" /><br>
+        <input type="text" name="time" placeholder="Select Time" id="timepicker" /><br>
+        <input type="text" name="duration" placeholder="duration [in minutes]" /><br>
+        <h4>Select days</h4>
+        <input type="checkbox" id="mon" value="0" name="dayList[]" /><label for="mon">Monday</label><br>
+        <input type="checkbox" id="tue" value="1" name="dayList[]" /><label for="tue">Tuesday</label><br>
+        <input type="checkbox" id="wed" value="2" name="dayList[]" /><label for="wed">Wednesday</label><br>
+        <input type="checkbox" id="thu" value="3" name="dayList[]" /><label for="thu">Thursday</label><br>
+        <input type="checkbox" id="fri" value="4" name="dayList[]" /><label for="fri">Friday</label><br>
+        <input type="checkbox" id="sat" value="5" name="dayList[]" /><label for="sat">Saturday</label><br>
+        <input type="checkbox" id="sun" value="6" name="dayList[]" /><label for="sun">Sunday</label><br>
+        <h4>Select courses</h4>
+        {% for course in courses %}
+        <input type="checkbox" id="course{{course.id}}" value="{{course.id}}" name="courseList[]" /><label
+            for="course{{course.id}}">{{course.name}}</label><br>
+        {% endfor %}
+        <h4>Select Students</h4>
+        {% for student in students %}
+        <input type="checkbox" id="student{{student.id}}" value="{{student.id}}" name="studentList[]" /><label
+            for="student{{student.id}}">{{student.fname+" "+student.lname}}</label><br>
+        {% endfor %}
+        <button>add batch</button>
+    </form>
+
+<script>
+        $("#timepicker").timepicker({
+            timeFormat : 'H:i:s',
+        })
+</script>
+</body>
+</html>

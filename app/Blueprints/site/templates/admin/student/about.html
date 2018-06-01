@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : about student</title>
+</head>
+<body>
+    <h1>Students</h1>
+    <ul>
+        <li><a href="#">browse students</a></li>
+        <li><a href="/student/register">new student</a></li>
+    </ul>
+
+    <h2>about {{student.fname}} {{student.lname}}</h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Name: </th>
+            <td>{{student.fname}} {{student.lname}}</td>
+        </tr>
+
+        <tr>
+            <th>RFID: </th>
+            <td>{{student.RFID}}</td>
+        </tr>
+
+        <tr></tr>
+        </tbody>
+    </table>
+</body>
+</html>

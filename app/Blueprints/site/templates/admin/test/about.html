@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : About test</title>
+</head>
+<body>
+
+    <h1>Tests</h1>
+    <ul>
+        <li><a href="/test">Browse tests</a></li>
+        <li><a href="/test/new">new test</a></li>
+    </ul>
+
+    <h2>about test : {{test.name}}</h2>
+
+    <h3>students appearing in the exam:</h3>
+        <ul>
+        {% for student in students %}
+            <li>{{student.name}}</li>
+        {% endfor %}
+        </ul>
+    <h3>details:</h3>
+        <table border="1" cellpadding="2">
+            <tr>
+                <td>Date</td>
+                <td>{{test.date}}</td>
+            </tr>
+            <tr>
+                <td>type</td>
+                <td>{{test.type}}</td>
+            </tr>
+            <tr>
+                <td>graded</td>
+                <td>{% print "no" if test.graded == 0 else "yes" %}</td>
+            </tr>
+        </table>
+    {% if test.graded != 0 %}
+    <h3>Student grades</h3>
+
+    <table border="1" cellpadding="2">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{student.name}}</td>
+            <td>{{student.grade}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+</body>
+</html>

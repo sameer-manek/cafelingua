@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cafelingua : register student</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+<h1>Students</h1>
+    <ul>
+        <li><a href="/student">browse students</a></li>
+        <li><a href="#">new student</a></li>
+    </ul>
+
+    <h2>register new student</h2>
+    <form action="" method="post">
+
+        <div class="msg">
+            {{msg}}
+        </div>
+
+        <input type="text" placeholder="first name" name="fname" /><br><br>
+        <input type="text" placeholder="last name" name="lname" /><br><br>
+        <input type="email" placeholder="email" name="email" /><br><br>
+        <input type="text" placeholder="phone number" name="phone" /><br><br>
+        <input id="datepicker" name="DOB" placeholder="DOB"/><br><br>
+        <input type="text" name="RFID" placeholder="allot RFID" /><br><br>
+        <input type="text" name="source" placeholder="source" /><br><br>
+        <button>register</button>
+    </form>
+
+<script>
+	$( function() {
+    	$( "#datepicker" ).datepicker({
+            dateFormat : 'yy-mm-dd',
+            changeMonth : true,
+            changeYear : true,
+            yearRange : '1980:2005'
+        });
+  	} );
+</script>
+</body>
+</html>
