@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>cafelingua admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{url_for("static", filename = "assets/img/icon.png")}}" />
+        <link rel="stylesheet" href="{{url_for("static", filename = "assets/scss/admin.min.css")}}" />
+    </head>
+    <body>
+        <div class="AdminDashboard">
+          <div class="CafeColor tab"></div>
+          <div class="MenuPanel tab">
+            <img src="../assets/img/logox500.png" alt="logo">
+            <div class="Menu">
+              <a href="#"><i class="fas fa-clipboard"></i><p>Dashboard</p></a>
+              <a href="#"><i class="fas fa-user"></i><p>Student</p></a>
+              <a href="#"><i class="fas fa-users"></i><p>Batches</p></a>
+              <a href="#"><i class="fas fa-bookmark"></i><p>Modules</p></a>
+              <a href="#"><i class="fas fa-book-open"></i><p>Courses</p></a>
+              <a href="#"><i class="fas fa-file-alt"></i><p>Tests</p></a>
+            </div>
+            <div class="LogoutButton">
+              <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+          </div>
+        </div>
+        {% block body %}
+
+        {% endblock %}
+    </body>
+</html>

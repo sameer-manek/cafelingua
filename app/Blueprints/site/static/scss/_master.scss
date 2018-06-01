@@ -1,0 +1,65 @@
+@import url("../fonts/FontAwesome/css/fontawesome-all.min.css");
+@font-face {
+    font-family: 'CastleT';
+    src: url('../fonts/castlet-webfont.woff2') format('woff2'),
+         url('../fonts/castlet-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'CastleT';
+  font-weight: 300;
+  font-style: normal;
+
+  &::selection {
+    color: #fff;
+    background: #57a377;
+  }
+
+  &::-moz-selection{
+    color: #fff;
+    background: #57a377;
+  }
+}
+
+
+html,body{
+  height: 100%;
+  width: 100%;
+  background-color: #f1f3f6;
+}
+
+$coffee-color:#755a31;
+$lingua-color:#57a377;
+$right-color:#ff6d00;
+
+::-webkit-scrollbar {
+    width: 7px;
+    transition: all 0.2s;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $coffee-color;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $lingua-color;
+}
+
+a{
+  color: $coffee-color;
+}

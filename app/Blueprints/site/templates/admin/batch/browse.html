@@ -2,40 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>cafelingua : batches</title>
+    <title>Batches</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="maximum-scale=1, width=1080">
+    <link rel="shortcut icon" href="../assets/img/icon.png">
+    <link rel="stylesheet" href="../assets/scss/admin.min.css">
 </head>
 <body>
-    <h1>Batches</h1>
-    <ul>
-        <li><a href="#">browse batches</a></li>
-        <li><a href="/batch/new">add batch</a></li>
-    </ul>
+  <div class="AdminDashboard">
+    <div class="CafeColor tab"></div>
+    <div class="MenuPanel tab">
+      <img src="../assets/img/logox500.png" alt="logo">
+      <div class="Menu">
+        <a href="#"><i class="fas fa-clipboard"></i><p>Dashboard</p></a>
+        <a href="#"><i class="fas fa-user"></i><p>Student</p></a>
+        <a href="#"><i class="fas fa-users"></i><p>Batches</p></a>
+        <a href="#"><i class="fas fa-bookmark"></i><p>Modules</p></a>
+        <a href="#"><i class="fas fa-book-open"></i><p>Courses</p></a>
+        <a href="#"><i class="fas fa-file-alt"></i><p>Tests</p></a>
+      </div>
+      <div class="LogoutButton">
+        <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+      </div>
+    </div>
+  </div>
 
-    <h2>Currently registereds batches</h2>
-    <table border="1" cellpadding="2">
+  <div class="BatchesDetail">
+    <div class="UserDetail">
+      <h3>Dr. Deepak Mashru</h3>
+      <img src="https://0.academia-photos.com/6365507/3086920/3632179/s200_deepak.mashru.jpg" alt="">
+      <!-- <p><i class="fas fa-angle-down"></i></p> -->
+    </div>
+
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Batches</h3>
+    </div>
+    <br><br>
+    <div class="Board">
+      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Batch</p></a></span>
+      <span class="button"><a href="#"><i class="fas fa-user-friends"></i><p>Browse Batches</p></a></span>
+      <br><br><br>
+      <p class="sub1"><i class="fas fa-chevron-right"></i>Currently Registered Batches</p>
+      <br><br>
+      <table>
         <thead>
-        <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>start date</th>
-            <th>time</th>
-            <th>duration</th>
-            <th>action</th>
-        </tr>
+          <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Starting Date</th>
+              <th>Time</th>
+              <th>Duration</th>
+              <th>Action</th>
+          </tr>
         </thead>
 
         <tbody>
-            {% for batch in batches %}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{batch.name}}</td>
-                    <td>{{batch.start_date}}</td>
-                    <td>{{batch.start_time}}</td>
-                    <td>{{batch.duration}}</td>
-                    <td><a href="#">About</a>&nbsp;<a href="#">delete</a>&nbsp;<a href="#">update</a></td>
-                </tr>
-            {% endfor %}
+          <tr>
+            <td>1</td>
+            <td>Batch 1</td>
+            <td>11-11-1997</td>
+            <td>9:00 AM</td>
+            <td>1 Hour</td>
+            <td>
+              <a href="#">About</a>
+              <a href="#">Delete</a>
+              <a href="#">Update</a>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Batch 2</td>
+            <td>11-11-1997</td>
+            <td>9:00 AM</td>
+            <td>1 Hour</td>
+            <td>
+              <a href="#">About</a>
+              <a href="#">Delete</a>
+              <a href="#">Update</a>
+            </td>
+          </tr>
         </tbody>
-    </table>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
