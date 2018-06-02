@@ -154,7 +154,7 @@ def addModule():
             from app.models.Module import Module
             from app.Blueprints import db
 
-            newModule = Module(request.form.get("name"), request.form.get("desc"), int(request.form.get("days")))
+            newModule = Module(request.form.get("name"), request.form.get("desc"), int(request.form.get("days")), float(request.form.get("maxMarks")))
             db.session.add(newModule)
             db.session.commit()
             return render_template("admin/module/add_module.html", msg="module is successfully added")
@@ -177,6 +177,7 @@ def updateModule(module_id):
             curMod.name = request.form.get("name")
             curMod.desc = request.form.get("desc")
             curMod.duration = request.form.get("duration")
+            curMod.maxMarks = request.form.get("maxMarks")
             db.session.commit()
             return render_template("admin/module/update_module.html", msg="updated the module", module=curMod)
 
@@ -354,13 +355,6 @@ def createTest():
         return render_template("admin/test/create_test.html", batches=batches)
     else:
         return render_template("errors/not_authorised.html")
-
-# create Subtest
-
-@mod_site.route("/test/<test_id>/subtest/new", methods = ['GET', 'POST'])
-def create_subtest(test_id):
-
-    return ""
 
 @mod_site.route("/test/about/<id>")
 def aboutTest(id):

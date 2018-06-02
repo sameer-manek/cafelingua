@@ -13,7 +13,8 @@ class Module(db.Model):
 
     link = db.relationship('Course', secondary = map, backref = db.backref('modules'), lazy = 'dynamic')
 
-    def __init__(self, name, desc, duration):
+    def __init__(self, name, desc, duration, maxMarks):
         self.name = name
         self.desc = desc
         self.duration = duration
+        self.maxMarks = maxMarks

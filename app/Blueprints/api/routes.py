@@ -61,7 +61,7 @@ def fetchGrades(studentId):
     else:
         return "Error"
 
-@mod_api.route("/batch/<course_id>/scores", methods=['GET'])
+@mod_api.route("/batch/<batch_id>/scores", methods=['GET'])
 def course_score(course_id):
     from app.Blueprints import db
     from app.models.Course import Course
@@ -69,6 +69,19 @@ def course_score(course_id):
     from app.models.Batch import Batch
     from app.models.Test import Test
     from app.models.Student import Student
+    from app.models.Grades import Grades
 
-    
-    return ""
+    batch = Batch.query.get(batch_id)
+    final_list = {}
+    for course in batch.courses:
+        for module in course.modules:
+            for test in module.tests:
+                # find average grade
+                i = sum(test.grades)/len(test.grades)
+                list = {
+                    "course" : course.name,
+                    "module" : module.name,
+                    "avg" : i
+                }
+                final_list.append(list)
+    return jsonify(final_list)
