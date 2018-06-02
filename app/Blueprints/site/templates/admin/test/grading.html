@@ -26,7 +26,7 @@
             {% for student in students %}
                 <tr>
                     <td>{{student.name}}</td>
-                    <td><input type="text" placeholder="enter grade" name="grades[]" value="{% print student.grade if student.grade != None %}" /></td>
+                    <td><input type="text" placeholder="enter grade" name="grades[]" value="{% print student.grade if student.grade is not none %}" /></td>
                 </tr>
             {% endfor %}
             </tbody>

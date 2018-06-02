@@ -60,3 +60,15 @@ def fetchGrades(studentId):
 
     else:
         return "Error"
+
+@mod_api.route("/batch/<course_id>/scores", methods=['GET'])
+def course_score(course_id):
+    from app.Blueprints import db
+    from app.models.Course import Course
+    from app.models.Module import Module
+    from app.models.Batch import Batch
+    from app.models.Test import Test
+    from app.models.Student import Student
+
+    
+    return ""
