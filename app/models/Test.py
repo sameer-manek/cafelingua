@@ -16,9 +16,10 @@ class Test(db.Model):
 
     link = db.relationship('Module', secondary = map, backref = db.backref('tests'), lazy = 'dynamic')
 
-    def __init__(self, name, date, type, graded = 0):
+    def __init__(self, name, date, module, type, graded = 0):
         self.name = name
         self.type = type
         self.date = date
         self.type = type
+        self.module = module
         self.graded = graded

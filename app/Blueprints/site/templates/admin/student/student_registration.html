@@ -21,12 +21,12 @@
       <br><br>
 
       <div class="StudentForm">
-        <form action="/" method="post">
+        <form action="" method="post">
           <input type="text" placeholder="First Name" name="fname" /><br>
           <input type="text" placeholder="Last Name" name="lname" /><br>
           <input type="email" placeholder="Email" name="email" /><br>
           <input type="text" placeholder="Phone Number" name="phone" /><br>
-          <input type="datetime-local" name="DOB" placeholder="Date of Birth"/><br>
+          <input type="text" id="datepicker" name="DOB" placeholder="Date of Birth"/><br>
           <input type="text" name="RFID" placeholder="RFID Number" /><br>
           <input type="text" name="source" placeholder="Source" /><br>
           <button><i class="fas fa-plus-circle"></i>Add</button>
@@ -34,6 +34,17 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $( function() {
+        $( "#datepicker" ).datepicker({
+              dateFormat : 'yy-mm-dd',
+              changeMonth : true,
+              changeYear : true,
+              yearRange : '1980:2005'
+          });
+      } );
+  </script>
 <!-- <h1>Students</h1>
     <ul>
         <li><a href="/student">browse students</a></li>
@@ -57,14 +68,5 @@
         <button>register</button>
     </form>
 
-<script>
-	$( function() {
-    	$( "#datepicker" ).datepicker({
-            dateFormat : 'yy-mm-dd',
-            changeMonth : true,
-            changeYear : true,
-            yearRange : '1980:2005'
-        });
-  	} );
-</script> -->
+ -->
 {% endblock %}
