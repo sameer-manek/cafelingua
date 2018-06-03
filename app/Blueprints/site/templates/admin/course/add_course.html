@@ -26,31 +26,13 @@
           <br>
           <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Modules</p>
           <br>
-          <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Module 1</label><br>
-          <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Module 2</label><br>
-          <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Module 3</label><br>
+	  {% for module in modules %}
+		<label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> {{module.name}}</label><br>
+	  {% endfor %}
           <button><i class="fas fa-plus-circle"></i>Add</button>
         </form>
       </div>
     </div>
 
   </div>
-<!--
-    <h1>Courses</h1>
-    <ul>
-        <li><a href="/course">Browse courses</a></li>
-        <li><a href="/course/new">new course</a></li>
-    </ul>
-
-    <h2>Add new Course</h2>
-    <div class="msg">{{msg}}</div>
-    <form action="" method="post">
-          <input type="text" name="name" placeholder="name of the course" /><br>
-        <h4>select courses:</h4>
-        {% for module in modules %}
-        <input type="checkbox" name="moduleList[]" value="{{module.id}}" id="mod{{module.id}}" /> <label
-            for="mod{{module.id}}">{{module.name}}</label><br>
-        {% endfor %}
-        <br><button>add course</button>
-    </form> -->
 {% endblock %}

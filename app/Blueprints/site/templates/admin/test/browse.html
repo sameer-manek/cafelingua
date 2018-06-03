@@ -14,8 +14,8 @@
     <br><br>
 
     <div class="Board">
-      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Test</p></a></span>
-      <span class="button"><a href="#"><i class="fas fa-file-alt"></i><p>Browse Test</p></a></span>
+      <span class="button"><a href="/test/new"><i class="fas fa-plus-circle"></i><p>Add Test</p></a></span>
+      <span class="button"><a href="/test"><i class="fas fa-file-alt"></i><p>Browse Test</p></a></span>
       <br><br><br>
       <p class="sub1"><i class="fas fa-chevron-right"></i>Carrently Added Tests</p>
       <br><br>
@@ -35,7 +35,7 @@
                   <td>{{loop.index}}</td>
                   <td>{{test.name}}</td>
                   <td>{{test.date}}</td>
-                  <td><a href="#">Grade</a>&nbsp; <a href="#">Update</a> &nbsp; <a href="/test/about/{{test.id}}">About</a></td>
+                  <td><a href="/test/grade/{{test.id}}">Grade</a>&nbsp; <a href="/test/update/{{test.id}}">Update</a> &nbsp; <a href="/test/about/{{test.id}}">About</a></td>
               </tr>
           {% endfor %}
           </tbody>

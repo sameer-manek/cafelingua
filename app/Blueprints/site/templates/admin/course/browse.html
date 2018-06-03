@@ -14,8 +14,8 @@
     <br><br>
 
     <div class="Board">
-      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Courses</p></a></span>
-      <span class="button"><a href="#"><i class="fas fa-book-open"></i><p>Browse Courses</p></a></span>
+      <span class="button"><a href="/course/new"><i class="fas fa-plus-circle"></i><p>Add Courses</p></a></span>
+      <span class="button"><a href="/course"><i class="fas fa-book-open"></i><p>Browse Courses</p></a></span>
       <br><br><br>
       <p class="sub1"><i class="fas fa-chevron-right"></i>Currrently Registered Courses</p>
       <br><br>
@@ -40,30 +40,4 @@
       </table>
     </div>
   </div>
-    <!-- <h1>Courses</h1>
-    <ul>
-        <li><a href="#">Browse courses</a></li>
-        <li><a href="/course/new">new course</a></li>
-    </ul>
-
-    <h2>Currrently registered courses</h2>
-    <table border="1" cellpadding="2">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for course in courses %}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{course.name}}</td>
-                    <td><a href="#">update</a> <a href="/course/about/{{course.id}}">About</a> <a href="/course/delete/{{course.id}}">delete</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
 {% endblock %}

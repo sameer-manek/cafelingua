@@ -14,8 +14,8 @@
     <br><br>
 
     <div class="Board">
-      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Test</p></a></span>
-      <span class="button"><a href="#"><i class="fas fa-file-alt"></i><p>Browse Test</p></a></span>
+      <span class="button"><a href="/test/new"><i class="fas fa-plus-circle"></i><p>Add Test</p></a></span>
+      <span class="button"><a href="/test"><i class="fas fa-file-alt"></i><p>Browse Test</p></a></span>
       <br><br><br>
       <p class="sub1"><i class="fas fa-chevron-right"></i>Add New Test</p>
       <br><br>
@@ -23,24 +23,61 @@
       <div class="TestForm">
         <form action="/" method="post">
           <input type="text" name="name" placeholder="Name" /><br>
-          <input type="date" name="date" placeholder="Date" /><br>
+          <input type="text" name="date" id="datepicker" placeholder="Date" /><br>
           <br>
           <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Batch</p>
           <select name="batch" id="batch">
-              <option value="">Batch 1</option>
-              <option value="">Batch 1</option>
-              <option value="">Batch 1</option>
+              {% for batch in batches %}
+              <option value="{{batch.id}}">{{batch.name}}</option>
+              {% endfor %}
           </select><br>
           <br>
           <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Student</p><br>
-          <label><input type="checkbox" name="StudentList[]" value="" /><span class="checkmark"></span> Student 1</label><br>
-          <label><input type="checkbox" name="StudentList[]" value="" /><span class="checkmark"></span> Student 2</label><br>
+          <div id="loadStudents"></div>
           <input type="text" name="type" placeholder="Type of Test" /><br><br>
           <button><i class="fas fa-plus-circle"></i>Add</button>
         </form>
       </div>
     </div>
   </div>
+
+  <script>
+  	$( function() {
+      	$( "#datepicker" ).datepicker({
+              dateFormat : 'yy-mm-dd',
+              changeMonth : true,
+              changeYear : true,
+              yearRange : '1980:2005'
+          });
+    	} );
+
+  	function fetchStudents(){
+  	    var val = $("#batch option:selected").val();
+  	    $("#loadStudents").html("");
+  	    $.ajax({
+              url: "/api/batch/students/"+val,
+              dataType: "json",
+              type: "post",
+              data: {
+                  key: "94l5ezGDw7EsHF9a"
+              },
+              success: function(data){
+                  $.each(data, function(key, value){
+                      var div = '<label><input type="checkbox" name="StudentList[]" value="'+value['id']+'" /> <span class="checkmark"></span> '+value['name']+'</label><br />';
+                      $("#loadStudents").append(div);
+                  })
+              }
+          })
+      }
+
+  	$(document).ready(function(){
+  	   fetchStudents()
+      });
+
+  	$("#batch").change(function(){
+          fetchStudents()
+      });
+  </script>
 
 <!--
     <h1>Tests</h1>
@@ -69,41 +106,5 @@
     </form>
 
 
-<script>
-	$( function() {
-    	$( "#datepicker" ).datepicker({
-            dateFormat : 'yy-mm-dd',
-            changeMonth : true,
-            changeYear : true,
-            yearRange : '1980:2005'
-        });
-  	} );
-
-	function fetchStudents(){
-	    var val = $("#batch option:selected").val();
-	    $("#loadStudents").html("");
-	    $.ajax({
-            url: "/api/batch/students/"+val,
-            dataType: "json",
-            type: "post",
-            data: {
-                key: "94l5ezGDw7EsHF9a"
-            },
-            success: function(data){
-                $.each(data, function(key, value){
-                    var div = '<input type="checkbox" name="StudentList[]" value="'+value['id']+'" />'+value['name']+'<br />';
-                    $("#loadStudents").append(div);
-                })
-            }
-        })
-    }
-
-	$(document).ready(function(){
-	   fetchStudents()
-    });
-
-	$("#batch").change(function(){
-        fetchStudents()
-    });
-</script> -->
+ -->
 {% endblock %}
