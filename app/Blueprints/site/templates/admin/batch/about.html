@@ -23,8 +23,12 @@
 		<td>{{batch.start_time}}</td>
 	</tr>
 </table>
-<svg width="960" height="500"></svg>
-
+<div>
+<svg width="960" height="500" id="svg_test"></svg>
+</div>
+<div>
+<svg width="960" height="500" id="svg_module"></svg>
+</div>
 <script>
 
 // Script for generating Student Performance chart
@@ -41,7 +45,7 @@ window.onload = function () {
 
 			d = d3.csvParse(text)
 
-				var svg = d3.select("svg"),
+				var svg = d3.select("#svg_test"),
     		margin = {top: 20, right: 20, bottom: 30, left: 40},
     		width = +svg.attr("width") - margin.left - margin.right,
     		height = +svg.attr("height") - margin.top - margin.bottom;
@@ -86,6 +90,60 @@ window.onload = function () {
 				.attr("fill", (d) => { return mod1 })
       			.attr("height", function(d) { return height - y(d.avg); });
 		}
+
+	text = ""
+		fetch("/api/module/{{batch.id}}/scores", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph()}) )
+
+		function createGraph() {
+
+			d = d3.csvParse(text)
+
+				var svg = d3.select("#svg_module"),
+    		margin = {top: 20, right: 20, bottom: 30, left: 40},
+    		width = +svg.attr("width") - margin.left - margin.right,
+    		height = +svg.attr("height") - margin.top - margin.bottom;
+
+			var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    		y = d3.scaleLinear().rangeRound([height, 0]);
+
+			var g = svg.append("g")
+    			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			grade = []
+				d.forEach( function(i) {
+					console.log(i)
+						grade.push(i.avg) 
+				})
+
+  			x.domain(d.map(function(d) { return d.module; }));
+  			y.domain([0, 9]);
+
+  			g.append("g")
+      			.attr("class", "axis axis--x")
+      			.attr("transform", "translate(0," + height + ")")
+      			.call(d3.axisBottom(x));
+
+  			g.append("g")
+      			.attr("class", "axis axis--y")
+      			.call(d3.axisLeft(y).ticks(9))
+    			.append("text")
+      			.attr("transform", "rotate(-90)")
+      			.attr("y", 6)
+      			.attr("dy", "0.71em")
+      			.attr("text-anchor", "end")
+      			.text("Frequency");
+
+  			g.selectAll(".bar")
+    			.data(d)
+    			.enter().append("rect")
+      			.attr("class", "bar")
+      			.attr("x", function(d) { return x(d.module); })
+      			.attr("y", function(d) { return y(d.avg); })
+      			.attr("width", x.bandwidth())
+				.attr("fill", (d) => { return mod1 })
+      			.attr("height", function(d) { return height - y(d.avg); });
+		}
+
 
 }
 
