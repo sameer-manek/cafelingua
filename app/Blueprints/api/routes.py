@@ -43,6 +43,10 @@ def fetchStudentsFromBatch(batchid):
                 students.append(arr)
             return jsonify(students)
 
+@mod_api.route("/batch/<batch_id>/modules", methods = ["POST"])
+def get_batch_routes(batch_id):
+    return ""
+
 @mod_api.route("/student/scores/<studentId>", methods=["GET"])
 def fetchGrades(studentId):
     if session.get("user") == True and session['type'] == "admin":
@@ -64,20 +68,20 @@ def fetchGrades(studentId):
 @mod_api.route("/batch/<batch_id>/scores", methods=['GET'])
 def course_score(course_id):
     if session.get("user") == True and session['type'] == "admin":
-    from app.Blueprints import db
-    from app.models.Course import Course
-    from app.models.Module import Module
-    from app.models.Batch import Batch
-    from app.models.Test import Test
-    from app.models.Student import Student
-    from app.models.Grades import Grades
+        from app.Blueprints import db
+        from app.models.Course import Course
+        from app.models.Module import Module
+        from app.models.Batch import Batch
+        from app.models.Test import Test
+        from app.models.Student import Student
+        from app.models.Grades import Grades
 
-    batch = Batch.query.get(batch_id)
-    csv = "course,module,avg,max".escape("\n")
-    for course in batch.courses:
-        for module in course.modules:
-            for test in module.tests:
-                # find average grade
-                i = sum(test.grades)/len(test.grades)
-                csv = csv + str(course.name) + "," + str(module.name) + "," + float(i) + "," + float(module.maxMarks) + escape("\n")
-    return str(csv)
+        batch = Batch.query.get(batch_id)
+        csv = "course,module,avg,max".escape("\n")
+        for course in batch.courses:
+            for module in course.modules:
+                for test in module.tests:
+                    # find average grade
+                    i = sum(test.grades)/len(test.grades)
+                    csv = csv + str(course.name) + "," + str(module.name) + "," + float(i) + "," + float(module.maxMarks) + escape("\n")
+        return str(csv)

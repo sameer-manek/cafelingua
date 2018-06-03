@@ -21,14 +21,14 @@
       <br><br>
 
       <div class="TestForm">
-        <form action="/" method="post">
+        <form action="" method="post">
           <input type="text" name="name" placeholder="Name" /><br>
           <input type="text" name="date" id="datepicker" placeholder="Date" /><br>
           <br>
           <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Batch</p>
           <select name="batch" id="batch">
               {% for batch in batches %}
-              <option value="{{batch.id}}">{{batch.name}}</option>
+                <option value="{{batch.id}}">{{batch.name}}</option>
               {% endfor %}
           </select><br>
           <br>

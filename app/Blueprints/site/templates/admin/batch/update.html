@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'admin/master.html' %}
+{% block body %}
+  <div class="CreateBatch">
+    <div class="UserDetail">
+      <h3>Dr. Deepak Mashru</h3>
+      <img src="https://0.academia-photos.com/6365507/3086920/3632179/s200_deepak.mashru.jpg" alt="">
+      <!-- <p><i class="fas fa-angle-down"></i></p> -->
+    </div>
 
-</body>
-</html>
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Create Batche</h3>
+      <br><br>
+      <div class="Board">
+        <span class="button"><a href="#"><i class="fas fa-user-friends"></i><p>Browse Batches</p></a></span>
+        <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Batch</p></a></span>
+        <br><br><br>
+
+        <p class="sub1"><i class="fas fa-chevron-right"></i>Create New Batch</p>
+        <br><br>
+
+        <div class="BatchForm">
+          <form class="" action="" method="post">
+            <input type="text" name="name" placeholder="Name" /><br>
+            <input type="text" name="time" id="timepicker" placeholder="Select Time" /><br>
+            <input type="text" name="duration" placeholder="Duration (Minutes)" /><br>
+            <br>
+            <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Days</p>
+            <br>
+            <label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> Monday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="1"><span class="checkmark"></span> Tuesday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="2"><span class="checkmark"></span> Wednesday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="3"><span class="checkmark"></span> Thursday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="4"><span class="checkmark"></span> Friday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="5"><span class="checkmark"></span> Saturday</label><br>
+            <label><input type="checkbox" name="dayList[]" value="6"><span class="checkmark"></span> Sunday</label>
+            <br>
+            <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select course</p>
+            <br>
+            {% for course in courses %}
+                <label><input type="radio" name="course" value="0"><span class="checkmark"></span> {{course.name}}</label><br>
+            {% endfor %}
+            <br>
+            <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Students</p>
+            <br>
+            {% for student in students %}
+            <label><input type="checkbox" name="course" value="0"><span class="checkmark"></span> {{student.fname}} {{student.lname}}</label><br>
+            {% endfor %}
+            <button><i class="fas fa-plus-circle"></i>Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+          $("#timepicker").timepicker({
+              timeFormat : 'H:m:s',
+          })
+  </script>
+{% endblock %}

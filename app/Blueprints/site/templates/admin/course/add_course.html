@@ -21,13 +21,13 @@
       <br><br>
 
       <div class="CourseForm">
-        <form action="/" method="post">
+        <form action="" method="post">
           <input type="text" name="name" placeholder="Name of The Course" /><br>
           <br>
           <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Modules</p>
           <br>
 	  {% for module in modules %}
-		<label><input type="checkbox" name="dayList[]" value="0"><span class="checkmark"></span> {{module.name}}</label><br>
+		<label><input type="checkbox" name="moduleList[]" value="{{module.id}}"><span class="checkmark"></span> {{module.name}}</label><br>
 	  {% endfor %}
           <button><i class="fas fa-plus-circle"></i>Add</button>
         </form>

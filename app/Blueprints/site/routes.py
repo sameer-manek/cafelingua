@@ -302,9 +302,8 @@ def createBatch():
             for student in request.form.getlist("studentList[]"):
                 stud = Student.query.get(student)
                 newsBatch.students.append(stud)
-            for course in request.form.getlist("courseList[]"):
-                cr = Course.query.get(course)
-                newsBatch.courses.append(cr)
+            cr = Course.query.get(request.form.get("course"))
+            newsBatch.courses.append(cr)
             db.session.commit()
             return render_template("admin/batch/create_batch.html", courses=courses, students=students,
                                    msg="the batch has been registered")
@@ -313,6 +312,20 @@ def createBatch():
     else:
         return render_template("errors/not_authorised.html")
 
+@mod_site.route("/batch/delete/<batch_id>", methods=['GET'])
+def delete_batch(batch_id):
+    if session.get("user") and session.get("type") == "admin":
+        from app.models.Batch import Batch
+        from app.Blueprints import db
+        b = Batch.query.get(batch_id)
+        db.session.delete(b)
+        db.session.commit()
+    return redirect("/batch")
+
+@mod_site.route("/batch/update/<batch_id>", methods = ["GET", "POST"])
+def update_batch(batch_id):
+
+    return ""
 
 # tests
 

@@ -14,19 +14,21 @@
     <br><br>
 
     <div class="Board">
-      <span class="button"><a href="#"><i class="fas fa-bookmark"></i><p>Browse Modules</p></a></span>
+      <span class="button"><a href="/module"><i class="fas fa-bookmark"></i><p>Browse Modules</p></a></span>
       <br><br><br>
-      <p class="sub1"><i class="fas fa-chevron-right"></i>Add New Modules</p>
+      <p class="sub1"><i class="fas fa-chevron-right"></i>update {{module.name}}</p>
       <br><br>
 
       <div class="UpdateModualForm">
-        <form action="/" method="post">
+        <form action="" method="post">
           <p>Name of Module</p>
-          <input type="text" name="name" placeholder="Name of Module" /><br>
+          <input type="text" name="name" placeholder="Name of Module" value="{{module.name}}" /><br>
           <p>Description</p>
-          <textarea name="desc" cols="30" rows="10" placeholder="Description" style="resize: none;"></textarea><br>
+          <textarea name="desc" cols="30" rows="10" placeholder="Description" style="resize: none;">{{module.desc}}</textarea><br>
           <p>Days</p>
-          <input type="text" name="days" max="4" placeholder="Days" /><br>
+          <input type="text" name="duration" max="4" placeholder="Days" value="{{module.duration}}" /><br>
+          <p>Maximum marks</p>
+          <input type="text" name="maxMarks" placeholder="maxMarks" value="{{module.maxMarks}}" /><br>
           <button><i class="fas fa-wrench"></i>Update</button>
         </form>
       </div>
