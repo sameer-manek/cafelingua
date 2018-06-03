@@ -43,9 +43,23 @@ def fetchStudentsFromBatch(batchid):
                 students.append(arr)
             return jsonify(students)
 
-@mod_api.route("/batch/<batch_id>/modules", methods = ["POST"])
+@mod_api.route("/batch/<batch_id>/modules", methods = ["GET"])
 def get_batch_routes(batch_id):
-    return ""
+    from app.models.Batch import Batch
+    from app.models.Course import Course
+    from app.models.Module import Module
+    from app.Blueprints import db
+    batch = Batch.query.get(batch_id)
+    i = list()
+    for course in batch.courses:
+        for module in course.modules:
+            init = {
+                "module_id" : module.id,
+                "module_name" : module.name,
+                "module_mm" : module.maxMarks
+            }
+            i.append(init)
+    return jsonify(i)
 
 @mod_api.route("/student/scores/<studentId>", methods=["GET"])
 def fetchGrades(studentId):

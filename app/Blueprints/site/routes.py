@@ -60,7 +60,7 @@ def accessStudent():
         return render_template("errors/not_authorised.html")
 
 
-@mod_site.route("/student/register", methods=["GET", "POST"])
+@mod_site.route("/student/new", methods=["GET", "POST"])
 def registerStudent():
     if session.get("user") == True and session["type"] == "admin":
         if request.method == "POST":
@@ -350,9 +350,10 @@ def createTest():
             from app.Blueprints import db
             from app.models.Test import Test
             from app.models.Student import Student
+            from app.models.Module import Module
             from app.models.Grades import Grades
 
-            newTest = Test(request.form.get("name"), request.form.get("date"), request.form.get("type"))
+            newTest = Test(name = request.form.get("name"), date = request.form.get("date"), type = request.form.get("type"), module = request.form.get("module"))
             db.session.add(newTest)
             db.session.commit()
             StudentList = request.form.getlist("StudentList[]")
