@@ -104,3 +104,28 @@ def course_score(batch_id):
                     i = sum(grades)/len(grades)
                     csv = csv + str(course.name) + "," + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + escape("\n")
         return str(csv)
+
+@mod_api.route("/module/<batch_id>/scores", methods=['GET'])
+def mod_score(batch_id):
+    if session.get("user") == True and session['type'] == "admin":
+        from app.Blueprints import db
+        from app.models.Course import Course
+        from app.models.Module import Module
+        from app.models.Batch import Batch
+        from app.models.Test import Test
+        from app.models.Student import Student
+        from app.models.Grades import Grades
+
+        batch = Batch.query.get(batch_id)
+        csv = "module,avg,max" + escape("\n")
+        for course in batch.courses:
+            for module in course.modules:
+                grades = list()
+                for test in module.tests:
+                    # find average grade
+                    print(test)
+                    for i in test.grades:
+                        grades.append(float(i.grade))
+                i = sum(grades)/len(grades)
+                csv = csv + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + escape("\n")
+        return str(csv)
