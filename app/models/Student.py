@@ -22,7 +22,7 @@ class Student(db.Model):
     comp_date = db.Column("comp_date", db.Date)
     state = db.Column("state", db.Integer)
     link = db.relationship('Batch', secondary=map, backref=db.backref('students'), lazy='dynamic')
-    grades = db.relationship("Grades", backref=db.backref("student"), primaryjoin=id == Grades.student_id)
+    grades = db.relationship("Grades", backref=db.backref("students"), primaryjoin=id == Grades.student_id)
 
     def __init__(self, fname, lname, email, RFID, mobile, DOB, source):
         passwd = fname+" "+lname
