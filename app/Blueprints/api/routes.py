@@ -66,7 +66,7 @@ def fetchGrades(studentId):
         return "Error"
 
 @mod_api.route("/batch/<batch_id>/scores", methods=['GET'])
-def course_score(course_id):
+def course_score(batch_id):
     if session.get("user") == True and session['type'] == "admin":
         from app.Blueprints import db
         from app.models.Course import Course
@@ -77,11 +77,16 @@ def course_score(course_id):
         from app.models.Grades import Grades
 
         batch = Batch.query.get(batch_id)
-        csv = "course,module,avg,max".escape("\n")
+        csv = "course,module,avg,max" + escape("\n")
         for course in batch.courses:
             for module in course.modules:
                 for test in module.tests:
                     # find average grade
-                    i = sum(test.grades)/len(test.grades)
-                    csv = csv + str(course.name) + "," + str(module.name) + "," + float(i) + "," + float(module.maxMarks) + escape("\n")
+                    print(test)
+                    grades = list()
+                    for i in test.grades:
+                        grades.append(float(i.grade))
+                    print(grades)
+                    i = sum(grades)/len(grades)
+                    csv = csv + str(course.name) + "," + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + escape("\n")
         return str(csv)

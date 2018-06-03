@@ -327,6 +327,17 @@ def update_batch(batch_id):
 
     return ""
 
+@mod_site.route("/batch/about/<batch>")
+def aboutBatch(batch):
+    if session.get("user") == True and session["type"] == "admin":
+        from app.models.Course import Batch
+        from app.Blueprints import db
+
+        batch = Batch.query.get(batch)
+        return render_template("admin/batch/about.html", batch=batch)
+
+
+
 # tests
 
 @mod_site.route("/test")
