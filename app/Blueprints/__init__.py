@@ -7,11 +7,6 @@ app.config.from_pyfile("config.py")
 
 db = SQLAlchemy(app)
 
-engine = create_engine("mysql+pymysql://admin:Admin_2k18@172.104.181.210:3306/cafelingua")
-connection = engine.connect()
-if connection:
-    print("works")
-
 from app.Blueprints.api.routes import mod_api
 from app.Blueprints.site.routes import mod_site
 

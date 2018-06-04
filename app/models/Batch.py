@@ -1,10 +1,10 @@
-from app.Blueprints import db, connection
+from app.Blueprints import db
 from time import strftime
 
 class Batch(db.Model):
     __tablename__ = "batch"
     id = db.Column("id", db.Integer, primary_key = True)
-    name = db.Column("batch_name", db.Unicode)
+    name = db.Column("batch_name", db.String(90))
     start_date = db.Column("start_date", db.Date)
     comp_date = db.Column("comp_date", db.Date)
     day_byte = db.Column("day_byte", db.Integer)

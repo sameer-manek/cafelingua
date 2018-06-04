@@ -6,7 +6,7 @@ map = db.Table('batch_course', db.Column('course_id', db.Integer, db.ForeignKey(
 class Course(db.Model):
     __tablename__ = "course"
     id = db.Column("id", db.Integer, primary_key = True)
-    name = db.Column("name", db.Unicode)
+    name = db.Column("name", db.String(100))
     link = db.relationship('Batch', secondary=map, backref=db.backref('courses'), lazy='dynamic')
 
     def __init__(self, name):

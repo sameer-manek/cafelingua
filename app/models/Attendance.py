@@ -1,9 +1,9 @@
-from app.Blueprints import db, connection
+from app.Blueprints import db
 
 class Attendance(db.Model):
     __tablename__ = "attendance"
     id = db.Column('id', db.Integer, primary_key = True)
-    RFID = db.Column('RFID', db.Unicode)
+    RFID = db.Column('RFID', db.String(25))
     date = db.Column('date', db.Date)
     in_time = db.Column('in_time', db.Time)
     out_time = db.Column('out_time', db.Time)

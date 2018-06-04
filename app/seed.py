@@ -8,7 +8,3 @@ from app.models.Module import Module
 from app.models.Student import Student
 from app.models.Subtest import Subtest
 from app.models.Test import Test
-
-from app.Blueprints import db
-
-db.create_all()
