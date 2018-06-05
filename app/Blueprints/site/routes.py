@@ -406,6 +406,7 @@ def aboutTest(id):
         #students appearing in the test
         # general test details (date, type, graded)
         # if test graded then the grades of students who appeared in the test.
+        # NOTE: if not graded, than the score is 0
         from app.models.Student import Student
         from app.models.Test import Test
         from app.models.Grades import Grades
@@ -498,3 +499,5 @@ def updateTest(id):
     #test date
 
     return render_template("/admin/test/update.html", test = test, batches = batches, students = students)
+
+    
