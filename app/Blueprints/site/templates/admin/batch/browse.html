@@ -14,7 +14,7 @@
     <br><br>
     <div class="Board">
       <span class="button"><a href="/batch/new"><i class="fas fa-plus-circle"></i><p>Add Batch</p></a></span>
-      <span class="button"><a href="/batch"><i class="fas fa-user-friends"></i><p>Browse Batches</p></a></span>
+      <!-- <span class="button"><a href="/batch"><i class="fas fa-user-friends"></i><p>Browse Batches</p></a></span> -->
       <br><br><br>
       <p class="sub1"><i class="fas fa-chevron-right"></i>Currently Registered Batches</p>
       <br><br>
@@ -39,9 +39,9 @@
                 <td>{{batch.start_time}}</td>
                 <td>{{batch.duration}}</td>
                 <td>
-                  	<a href="/batch/about/{{batch.id}}">About</a>
+                  <a href="/batch/about/{{batch.id}}">About</a>
                   <a href="/batch/delete/{{batch.id}}">Delete</a>
-                  <a href="#">Update</a>
+                  <a href="/batch/update/{{batch.id}}">Update</a>
                 </td>
             </tr>
           {% endfor %}

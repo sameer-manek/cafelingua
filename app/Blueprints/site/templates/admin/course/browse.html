@@ -15,7 +15,7 @@
 
     <div class="Board">
       <span class="button"><a href="/course/new"><i class="fas fa-plus-circle"></i><p>Add Courses</p></a></span>
-      <span class="button"><a href="/course"><i class="fas fa-book-open"></i><p>Browse Courses</p></a></span>
+      <!-- <span class="button"><a href="/course"><i class="fas fa-book-open"></i><p>Browse Courses</p></a></span> -->
       <br><br><br>
       <p class="sub1"><i class="fas fa-chevron-right"></i>Currrently Registered Courses</p>
       <br><br>
@@ -33,7 +33,11 @@
                 <tr>
                     <td>{{loop.index}}</td>
                     <td>{{course.name}}</td>
-                    <td><a href="#">update</a> <a href="/course/about/{{course.id}}">About</a> <a href="/course/delete/{{course.id}}">delete</a></td>
+                    <td>
+                      <a href="/course/about/{{course_id}}">Update</a>
+                      <a href="/course/about/{{course.id}}">About</a>
+                      <a href="/course/delete/{{course.id}}">Delete</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

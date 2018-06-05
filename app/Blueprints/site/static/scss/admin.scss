@@ -3,6 +3,7 @@
 .loginPage{
     height: 100%;
     width: 100%;
+    min-width: 1080px;
     position: relative;
     background-color: #f1f3f6;
 
@@ -997,16 +998,19 @@ $areaWidth: 75%;
           &:nth-child(2){
             text-align: left;
             padding-left: 10px;
-            width: 400px;
-          }
-          &:nth-child(3){
             width: 300px;
           }
+          &:nth-child(3){
+            width: 500px;
+          }
           &:nth-child(4){
-            width: 200px;
+            width: 170px;
           }
           &:nth-child(5){
-            width: 250px;
+            width: 170px;
+          }
+          &:nth-child(6){
+            width: 200px;
           }
         }
       }
@@ -1022,13 +1026,17 @@ $areaWidth: 75%;
           font-size: 18px;
 
           &:nth-child(1),
-          &:nth-child(3),
           &:nth-child(4),
-          &:nth-child(5){
+          &:nth-child(5),
+          &:nth-child(6){
             text-align: center;
             padding: 10px 0 10px 0;
           }
-          &:nth-child(5){
+          &:nth-child(3){
+            text-align: justify;
+            padding: 10px;
+          }
+          &:nth-child(6){
             a{
               color: #424242;
               padding: 0 5px;
@@ -1306,7 +1314,8 @@ $areaWidth: 75%;
 
         textarea{
           border: 1px solid $coffee-color;
-          padding: 10px 0 10px 10px;
+          padding: 10px;
+          text-align: justify;
           width: 300px;
           margin: 7px 0;
           border: 0;
@@ -1491,7 +1500,10 @@ $areaWidth: 75%;
             width: 200px;
           }
           &:nth-child(6){
-            width: 250px;
+            width: 200px;
+          }
+          &:nth-child(7){
+            width: 200px;
           }
         }
       }
@@ -1511,11 +1523,13 @@ $areaWidth: 75%;
           &:nth-child(3),
           &:nth-child(4),
           &:nth-child(5),
-          &:nth-child(6){
+          &:nth-child(6),
+          &:nth-child(7){
             text-align: center;
             padding: 10px 0 10px 0;
           }
-          &:nth-child(6){
+          &:nth-child(6),
+          &:nth-child(7){
             a{
               color: #424242;
               padding: 0 5px;

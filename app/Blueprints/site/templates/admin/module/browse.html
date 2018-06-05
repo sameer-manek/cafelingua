@@ -39,7 +39,10 @@
                     <td>{{module.desc}}</td>
                     <td>{{module.duration}}</td>
                     <td>{{module.maxMarks}}</td>
-                    <td><a href="/module/update/{{module.id}}">update</a>&nbsp;<a href="/module/delete/{{module.id}}">delete</a></td>
+                    <td>
+                      <a href="/module/update/{{module.id}}">Update</a>&nbsp;
+                      <a href="/module/delete/{{module.id}}">Delete</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
