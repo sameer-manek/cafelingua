@@ -89,6 +89,24 @@ def aboutStudent(id):
         else:
             return render_template("admin/student/about.html", student = student)
 
+@mod_site.route("/student/<id>/deactivate", methods = ['GET'])
+def deactivate_student(id):
+    if session.get('user') and session.get('user') == "admin":
+        # valid access
+        from app.Blueprints import db
+        from app.models.Student import Student
+
+        student = Student.query.get(id)
+        if student is not None:
+            try:
+                student.state = 0
+                db.session.commit()
+            except Exception as e:
+                return "there was some problem on the backend"
+            return redirect("/student")
+        else:
+            return "could not deactivate student"
+
 
 # admin pages
 @mod_site.route("/admin", methods=["GET", "POST"])

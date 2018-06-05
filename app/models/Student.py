@@ -1,4 +1,4 @@
-from app.Blueprints import db, connection
+from app.Blueprints import db
 from time import strftime
 from app.models.Batch import Batch
 from app.models.Test import Test
@@ -10,15 +10,15 @@ class Student(db.Model):
     __tablename__ = "student_master"
     id = db.Column("id", db.Integer, primary_key = True)
     RFID = db.Column("RFID", db.Integer)
-    fname = db.Column("first_name", db.Unicode)
-    lname = db.Column("last_name", db.Unicode)
-    email = db.Column("email", db.Unicode, unique = True)
-    passwd = db.Column("passwd", db.Unicode)
-    mobile = db.Column("mobile", db.Unicode, unique = True)
+    fname = db.Column("first_name", db.String(25))
+    lname = db.Column("last_name", db.String(25))
+    email = db.Column("email", db.String(100), unique = True)
+    passwd = db.Column("passwd", db.String(70))
+    mobile = db.Column("mobile", db.String(20), unique = True)
     DOB = db.Column("DOB", db.Date)
-    picture = db.Column("picture", db.Unicode)
+    picture = db.Column("picture", db.String(100))
     reg_date = db.Column("reg_date", db.Date)
-    source = db.Column("source", db.Unicode)
+    source = db.Column("source", db.String(50))
     comp_date = db.Column("comp_date", db.Date)
     state = db.Column("state", db.Integer)
     link = db.relationship('Batch', secondary=map, backref=db.backref('students'), lazy='dynamic')

@@ -7,9 +7,9 @@ map = db.Table('test_module', db.Column('module_id', db.Integer, db.ForeignKey('
 class Test(db.Model):
     __tablename__ = "test"
     id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column("name", db.Unicode)
+    name = db.Column("name", db.String(90))
     date = db.Column("date", db.Date)
-    type = db.Column("type", db.Unicode)
+    type = db.Column("type", db.String(50))
     module = db.Column("module_id", db.Integer, db.ForeignKey("module.id"))
     graded = db.Column("graded", db.Integer)
     grades = db.relationship("Grades", backref = db.backref("test"), primaryjoin = id == Grades.test_id)

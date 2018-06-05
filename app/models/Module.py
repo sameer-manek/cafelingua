@@ -6,8 +6,8 @@ map = db.Table('course_module', db.Column('module_id', db.Integer, db.ForeignKey
 class Module(db.Model):
     __tablename__ = "module"
     id = db.Column("id", db.Integer, primary_key = True)
-    name = db.Column("name", db.Unicode)
-    desc = db.Column("desc", db.Unicode)
+    name = db.Column("name", db.String(90))
+    desc = db.Column("desc", db.Text)
     duration = db.Column("duration", db.Integer)
     maxMarks = db.Column("maximum_marks", db.Float)
 

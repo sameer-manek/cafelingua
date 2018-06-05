@@ -1,4 +1,4 @@
-from Blueprints import db
+from app.Blueprints import db
 
 class Subtest(db.Model):
     __tablename__ = "subtest"
