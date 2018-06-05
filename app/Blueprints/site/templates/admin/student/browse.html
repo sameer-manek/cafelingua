@@ -14,21 +14,21 @@
     <br><br>
 
     <div class="Board">
-      <span class="button"><a href="#"><i class="fas fa-plus-circle"></i><p>Add Student</p></a></span>
-      <span class="button"><a href="#"><i class="fas fa-user"></i><p>Browse Students</p></a></span>
+      <span class="button"><a href="/student/new"><i class="fas fa-plus-circle"></i><p>Add Student</p></a></span>
+      <!-- <span class="button"><a href="#"><i class="fas fa-user"></i><p>Browse Students</p></a></span> -->
       <br><br><br>
       <p class="sub1"><i class="fas fa-chevron-right"></i>Currently Registered Students</p>
       <br><br>
 
-      <table border="1" cellpadding="2">
+      <table>
           <thead>
           <tr>
               <th>#</th>
-              <th>first name</th>
-              <th>last name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Email</th>
               <th>Phone</th>
-			  <th>Profile</th>
+			        <th>Profile</th>
               <th>Actions</th>
           </tr>
           </thead>
@@ -42,7 +42,7 @@
                       <td>{{student.email}}</td>
                       <td>{{student.mobile}}</td>
                       <td><a href="/student/{{student.id}}/about">Profile</a></td>
-					  <td><a href="/student/{{student.id}}/deactivate">Deactivate</a></td>
+					            <td><a href="/student/{{student.id}}/deactivate">Deactivate</a></td>
                   </tr>
               {% endfor %}
           </tbody>
@@ -50,37 +50,4 @@
     </div>
   </div>
 
-
-    <!-- <h1>Students</h1>
-    <ul>
-        <li><a href="#">browse students</a></li>
-        <li><a href="/student/register">new student</a></li>
-    </ul>
-
-    <h2>currently registered students</h2>
-    <table border="1" cellpadding="2">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>first name</th>
-            <th>last name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-
-        <tbody>
-            {% for student in students %}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{student.fname}}</td>
-                    <td>{{student.lname}}</td>
-                    <td>{{student.email}}</td>
-                    <td>{{student.mobile}}</td>
-                    <td><a href="#">deactivate</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
 {% endblock %}
