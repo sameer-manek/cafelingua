@@ -150,4 +150,3 @@ def mod_score(batch_id):
                 i = sum(grades)/len(grades)
                 csv = csv + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + escape("\n")
         return str(csv)
->>>>>>> a2728c4ecb797efd87d088b513bc6cdcb2a8e39f
