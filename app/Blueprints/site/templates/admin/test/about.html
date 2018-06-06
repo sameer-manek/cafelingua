@@ -24,8 +24,9 @@
       <p class="sub1" style="font-size:17px;"><i class="fas fa-chevron-right"></i>Students Appearing In The Exam</p>
       <br>
 
-      <span class="UserName"><i class="fas fa-user-circle"></i><p>Deval Koradiya</p></span>
-      <span class="UserName"><i class="fas fa-user-circle"></i><p>Sameer Manek</p></span>
+      {% for student in students %}
+        <span class="UserName"><i class="fas fa-user-circle"></i><p>{{student.name}}</p></span>
+      {% endfor %}
       <br><br>
 
       <p class="sub1" style="font-size:17px;"><i class="fas fa-chevron-right"></i>Details</p>
@@ -34,17 +35,17 @@
           <tr>
               <td><i class="fas fa-calendar-alt"></i>Date</td>
               <td>:</td>
-              <td>11-11-1997</td>
+              <td>{{test.date}}</td>
           </tr>
           <tr>
               <td><i class="fas fa-align-justify"></i>Type</td>
               <td>:</td>
-              <td>Type 1</td>
+              <td>{{test.type}}</td>
           </tr>
           <tr>
               <td><i class="fas fa-dot-circle"></i>Graded</td>
               <td>:</td>
-              <td>10</td>
+              <td>{% print "no" if test.graded == 0 else "yes" %}</td>
           </tr>
       </table>
       <br>
@@ -58,18 +59,12 @@
             </tr>
         </thead>
         <tbody>
-          <tr>
-              <td>{{student.name}}</td>
-              <td>{{student.grade}}</td>
-          </tr>
-          <tr>
-              <td>{{student.name}}</td>
-              <td>{{student.grade}}</td>
-          </tr>
-          <tr>
-              <td>{{student.name}}</td>
-              <td>{{student.grade}}</td>
-          </tr>
+          {% for student in students %}
+            <tr>
+                <td>{{student.name}}</td>
+                <td>{{student.grade}}</td>
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
       <br>
