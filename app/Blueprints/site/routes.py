@@ -493,7 +493,7 @@ def updateTest(id):
             test.type = request.form.get("type")
             db.session.commit()
 
-            return "updated"
+            return redirect("/test")
     #students appearing in the test
     #test date
 
