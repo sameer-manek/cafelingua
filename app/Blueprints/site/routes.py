@@ -55,7 +55,7 @@ def accessStudent():
         from app.Blueprints import db
 
         students = Student.query.filter_by(state=1)
-        return render_template("admin/student/browse.html", students=students)
+        return render_template("admin/student/browse.html", students=students, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -76,18 +76,21 @@ def registerStudent():
             db.session.add(newStudent)
             db.session.commit()
             return render_template("admin/student/student_registration.html",
-                                   msg="student has been succefully registered!")
-        return render_template("admin/student/student_registration.html")
+                                   msg="student has been succefully registered!", username = fetchusername())
+        return render_template("admin/student/student_registration.html", username = fetchusername())
+    else:
+        return render_template("errors/not_authorised.html")
 
 @mod_site.route("/student/<id>/about", methods = ["GET"])
 def aboutStudent(id):
     if session.get("user") == True and session['type'] == "admin":
         from app.models.Student import Student
+
         student = Student.query.get(id)
         if student == None:
             return "no record exists"
         else:
-            return render_template("admin/student/about.html", student = student)
+            return render_template("admin/student/about.html", student = student, username = fetchusername())
 
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
@@ -143,7 +146,7 @@ def loadAdminDashboard():
 
         user = Admin.query.filter_by(id=session["user"]).first()
 
-        return render_template("admin/dashboard.html", usr=user)
+        return render_template("admin/dashboard.html", usr=user, username = fetchusername())
     else:
         return redirect("/admin/login")
 
@@ -156,7 +159,7 @@ def accessModules():
         from app.Blueprints import db
 
         modules = Module.query.all()
-        return render_template("admin/module/browse.html", modules=modules)
+        return render_template("admin/module/browse.html", modules=modules, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -175,8 +178,8 @@ def addModule():
             newModule = Module(request.form.get("name"), request.form.get("desc"), int(request.form.get("days")), float(request.form.get("maxMarks")))
             db.session.add(newModule)
             db.session.commit()
-            return render_template("admin/module/add_module.html", msg="module is successfully added")
-        return render_template("admin/module/add_module.html")
+            return render_template("admin/module/add_module.html", msg="module is successfully added", username = fetchusername())
+        return render_template("admin/module/add_module.html", username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -186,20 +189,21 @@ def updateModule(module_id):
     if session.get("user") == True and session["type"] == "admin":
         from app.models.Module import Module
         from app.Blueprints import db
+
         curMod = Module.query.get(module_id)
         if request.method == "POST":
             for field in request.form:
                 if request.form[field] == '':
                     return render_template("admin/module/update_module.html",
-                                           msg="update failed, reason : you left some fields empty", module=curMod)
+                                           msg="update failed, reason : you left some fields empty", module=curMod, username = fetchusername())
             curMod.name = request.form.get("name")
             curMod.desc = request.form.get("desc")
             curMod.duration = request.form.get("duration")
             curMod.maxMarks = request.form.get("maxMarks")
             db.session.commit()
-            return render_template("admin/module/update_module.html", msg="updated the module", module=curMod)
+            return render_template("admin/module/update_module.html", msg="updated the module", module=curMod, username = fetchusername())
 
-        return render_template("admin/module/update_module.html", module=curMod)
+        return render_template("admin/module/update_module.html", module=curMod, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -225,7 +229,7 @@ def accessCourses():
         from app.Blueprints import db
 
         courses = Course.query.all()
-        return render_template("admin/course/browse.html", courses=courses)
+        return render_template("admin/course/browse.html", courses=courses, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -249,8 +253,11 @@ def addCourse():
                 newCourse.modules.append(module)
             db.session.commit()
             return render_template("admin/course/add_course.html", modules=mods,
-                                   msg="course has been successfully added")
-        return render_template("admin/course/add_course.html", modules=mods)
+                                   msg="course has been successfully added", username = fetchusername())
+        return render_template("admin/course/add_course.html", modules=mods, username = fetchusername())
+
+    else:
+        return render_template("errors/not_authorised.html")
 
 
 @mod_site.route("/course/delete/<course_id>")
@@ -266,7 +273,7 @@ def deleteCourse(course_id):
         courses = Course.query.all()
         return redirect("/course")
     else:
-        return render_template("errors/not_authorised.html")
+        return render_template("errors/not_authorised.html", username = fetchusername())
 
 
 @mod_site.route("/course/about/<course_id>")
@@ -276,7 +283,7 @@ def aboutCourse(course_id):
         from app.Blueprints import db
 
         course = Course.query.get(course_id)
-        return render_template("admin/course/about_course.html", course=course, modules=course.modules)
+        return render_template("admin/course/about_course.html", course=course, modules=course.modules, username = fetchusername())
 
 
 # Batches
@@ -288,7 +295,7 @@ def accessBatches():
         from app.Blueprints import db
 
         batches = Batch.query.all()
-        return render_template("admin/batch/browse.html", batches=batches)
+        return render_template("admin/batch/browse.html", batches=batches, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -308,7 +315,7 @@ def createBatch():
             for field in request.form:
                 if request.form[field] == "":
                     return render_template("admin/batch/create_batch.html", courses=courses, students=students,
-                                           msg="please fill up all the fields")
+                                           msg="please fill up all the fields", username = fetchusername())
             daylist = request.form.getlist("dayList[]")
             arr = [0, 0, 0, 0, 0, 0, 0]
             for ele in daylist:
@@ -324,9 +331,9 @@ def createBatch():
             newsBatch.courses.append(cr)
             db.session.commit()
             return render_template("admin/batch/create_batch.html", courses=courses, students=students,
-                                   msg="the batch has been registered")
+                                   msg="the batch has been registered", username = fetchusername())
 
-        return render_template("admin/batch/create_batch.html", courses=courses, students=students)
+        return render_template("admin/batch/create_batch.html", courses=courses, students=students, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -335,6 +342,7 @@ def delete_batch(batch_id):
     if session.get("user") and session.get("type") == "admin":
         from app.models.Batch import Batch
         from app.Blueprints import db
+
         b = Batch.query.get(batch_id)
         db.session.delete(b)
         db.session.commit()
@@ -352,7 +360,7 @@ def aboutBatch(batch):
         from app.Blueprints import db
 
         batch = Batch.query.get(batch)
-        return render_template("admin/batch/about.html", batch=batch)
+        return render_template("admin/batch/about.html", batch=batch, username = fetchusername())
 
 
 
@@ -364,7 +372,7 @@ def accessTests():
         from app.models.Test import Test
         tests = Test.query.all()
 
-        return render_template("admin/test/browse.html", tests=tests)
+        return render_template("admin/test/browse.html", tests=tests, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -382,6 +390,8 @@ def createTest():
             from app.models.Module import Module
             from app.models.Grades import Grades
 
+
+
             newTest = Test(name = request.form.get("name"), date = request.form.get("date"), type = request.form.get("type"), module = request.form.get("module"))
             db.session.add(newTest)
             db.session.commit()
@@ -393,9 +403,9 @@ def createTest():
                 stud.grades.append(grade)
                 db.session.add(grade)
             db.session.commit()
-            return render_template("admin/test/create_test.html", batches=batches)
+            return render_template("admin/test/create_test.html", batches=batches, username = fetchusername())
 
-        return render_template("admin/test/create_test.html", batches=batches)
+        return render_template("admin/test/create_test.html", batches=batches, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -422,7 +432,7 @@ def aboutTest(id):
                     "grade" : grade.grade
                 }
                 students.append(s)
-        return render_template("admin/test/about.html", test = test, students = students)
+        return render_template("admin/test/about.html", test = test, students = students, username = fetchusername())
     else:
         return render_template("error/not_authorised.html")
 
@@ -452,13 +462,13 @@ def gradeTest(id):
             grades = request.form.getlist("grades[]")
             for i in range(0, len(test.grades)):
                 if(grades[i] == ''):
-                    return render_template("admin/test/grading.html", students = studs, test = test, msg="dont keep marks field blank")
+                    return render_template("admin/test/grading.html", students = studs, test = test, msg="dont keep marks field blank", username = fetchusername())
                 test.grades[i].grade = float(grades[i])
             db.session.commit()
             link = "/test/grade/"+id
             return redirect(link)
 
-        return render_template("admin/test/grading.html", students = studs, test = test)
+        return render_template("admin/test/grading.html", students = studs, test = test, username = fetchusername())
     else:
         return render_template("errors/not_authorised.html")
 
@@ -497,4 +507,12 @@ def updateTest(id):
     #students appearing in the test
     #test date
 
-    return render_template("/admin/test/update.html", test = test, batches = batches, students = students)
+    return render_template("/admin/test/update.html", test = test, batches = batches, students = students, username = fetchusername())
+
+
+def fetchusername():
+    from app.Blueprints import db
+    from app.models.Admin import Admin
+
+    user = Admin.query.get(session['user'])
+    return str(user.first_name + ' ' + user.last_name)

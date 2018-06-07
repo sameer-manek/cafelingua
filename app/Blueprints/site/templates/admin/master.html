@@ -21,8 +21,9 @@
         <div class="AdminDashboard">
           <div class="CafeColor tab"></div>
           <div class="MenuPanel tab">
-            <img src="{{url_for("static", filename = "img/logox500.png")}}" alt="logo">
+            <img src="{{url_for("static", filename = "img/Logox500.png")}}" alt="logo">
             <div class="Menu">
+                <p>{{username}}</p>
               <a href="/admin/dashboard"><i class="fas fa-clipboard"></i><p>Dashboard</p></a>
               <a href="/student"><i class="fas fa-user"></i><p>Student</p></a>
               <a href="/batch"><i class="fas fa-users"></i><p>Batches</p></a>
@@ -36,6 +37,7 @@
           </div>
         </div>
 		<div>
+
         {% block body %}
 
         {% endblock %}
