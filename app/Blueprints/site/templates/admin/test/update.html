@@ -59,6 +59,7 @@
                     success: function(data){
                         $.each(data, function(key, value){
                             var div = '<input type="checkbox" name="StudentList[]" value="'+value['id']+'" />'+value['name']+'<br />';
+
                             $("#loadStudents").append(div);
                         })
                     }
