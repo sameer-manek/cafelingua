@@ -7,41 +7,73 @@
 {% endblock %}
 
 {% block body %}
-<!-- <h2>About {{student.fname}} {{student.lname}}</h2> -->
-<!-- <table>
-    <tbody>
-        <tr>
-            <th>Name: </th>
-            <td>{{student.fname | capitalize}} {{student.lname | capitalize}}</td>
-        </tr>
 
-        <tr>
-            <th>RFID: </th>
-            <td>{{student.RFID}}</td>
-        </tr>
-		<tr>
-			<th>Email: </th>
-			<td>{{student.email}}</td>
-		</tr>
-		<tr>
-			<th>Phone: </th>
-			<td>{{student.mobile}}</td>
-		</tr>
-		<tr>
-			<th>Date of Birth:</th>
-			<td>{{student.DOB}}</td>
-		</tr>
-				<tr>
-	  <th>Picture</th>
-	  <td><img src={{ url_for("static", filename=student.picture) }}></td>
-	  </tr>
-    </tbody>
-</table> -->
-<!-- <div>
-	<h1>Performance:</h1>
-	<svg width="960" height="500"></svg>
+<div class="StudentAbout">
+	<div class="Title">
+		<h3><i class="fas fa-chevron-right"></i>Students</h3>
+	</div>
+	<br><br>
+	<div class="Board">
+		<span class="button"><a href="/student/new"><i class="fas fa-plus-circle"></i><p>Add Student</p></a></span>
+		<span class="button"><a href="/student"><i class="fas fa-user"></i><p>Browse Students</p></a></span>
+		<br><br><br>
+		<p class="sub1"><i class="fas fa-chevron-right"></i>About {{student.fname}} {{student.lname}}</p>
+		<br><br>
+		<table class="about">
+			<tr>
+				<th><p>Name: </p></th>
+				<td><p>{{student.fname | capitalize}} {{student.lname | capitalize}}</p></td>
+			</tr>
+			<tr>
+				<th><p>RFID: </p></th>
+				<td><p>{{student.RFID}}</p></td>
+			</tr>
+			<tr>
+				<th><p>Email: </p></th>
+				<td><p>{{student.email}}</p></td>
+			</tr>
+			<tr>
+				<th><p>Phone: </p></th>
+				<td><p>{{student.mobile}}</p></td>
+			</tr>
+			<tr>
+				<th><p>10<sup>th</sup> Grade: </p></th>
+				<td><p>{{student.grade10}}</p></td>
+			</tr>
+			<tr>
+				<th><p>12<sup>th</sup> Grade: </p></th>
+				<td><p>{{student.grade12}}</p></td>
+			</tr>
+			<tr>
+				<th><p>Graduate: </p></th>
+				<td><p>{{student.graduate}}</p></td>
+			</tr>
+			<tr>
+				<th><p>Post Graduate: </p></th>
+				<td><p>{{student.PG}}</p></td>
+			</tr>
+			<tr>
+				<th><p>Backlog(s):</p></th>
+				<td><p>{{student.NOB}}</p></td>
+			</tr>
+			<tr>
+				<th><p>Target Contry:</p></th>
+				<td><p>{{student.country}}</p></td>
+			</tr>
+			<!-- <tr>
+				<th>Picture</th>
+				<td><img src={{ url_for("static", filename=student.picture) }}></td>
+			</tr> -->
+		</table>
+		<br><br>
+		<div>
+			<p class="sub1"><i class="fas fa-chevron-right"></i>Performance :</p>
+			<svg width="960" height="500"></svg>
+		</div>
+	</div>
+</div>
 
-</div> -->
+
 
 <script>
 
