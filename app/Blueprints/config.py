@@ -1,6 +1,6 @@
 DEBUG = True
 #live server
-SQLALCHEMY_DATABASE_URI = "mysql+pymysql://admin:Admin_2k18@172.104.181.210/cafelingua"
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://admin:Admin_2k18@139.59.28.151/cafelingua"
 #local server
 #SQLALCHEMY_DATABASE_URI = "mysql+pymysql://sameer:poochies@127.0.0.1:3306/cafelingua"
 SQLALCHEMY_TRACK_MODIFICATIONS = False
