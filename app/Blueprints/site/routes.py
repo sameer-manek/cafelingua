@@ -63,21 +63,32 @@ def accessStudent():
 @mod_site.route("/student/new", methods=["GET", "POST"])
 def registerStudent():
     if session.get("user") == True and session["type"] == "admin":
+        from app.Blueprints import db
+        from app.models.Batch import Batch
+        from app.models.Student import Student
+        from app.models.Country import Country
+
+        batches = Batch.query.all()
+        countries = Country.query.all()
         if request.method == "POST":
             for value in request.form:
                 if request.form[value] == '':
                     return render_template("admin/student/student_registration.html", msg="all fields are necessary")
-            from app.Blueprints import db
-            from app.models.Student import Student
 
-            newStudent = Student(request.form.get("fname"), request.form.get("lname"), request.form.get("email"),
-                                 request.form.get("RFID"), request.form.get("phone"), request.form.get("DOB"),
-                                 request.form.get("source"))
+            cnt = Country.query.get(request.form.get("country"))
+
+            newStudent = Student(fname = request.form.get("fname"), lname = request.form.get("lname"), email = request.form.get("email"),
+                                 RFID = request.form.get("RFID"), mobile = request.form.get("phone"), DOB = request.form.get("DOB"),
+                                 source = request.form.get("source"), grade10 = request.form.get('grade10'), grade12 = request.form.get('grade12'), graduate = request.form.get('graduate'), PG = request.form.get('PG'), NOB = request.form.get('NOB'), country = cnt.id)
+
             db.session.add(newStudent)
             db.session.commit()
+            batch = Batch.query.get(request.form.get('batch'))
+            batch.studs.append(newStudent)
             return render_template("admin/student/student_registration.html",
-                                   msg="student has been succefully registered!", username = fetchusername())
-        return render_template("admin/student/student_registration.html", username = fetchusername())
+                                   msg="student has been succefully registered!", username = fetchusername(), batches = batches, countries = countries)
+
+        return render_template("admin/student/student_registration.html", username = fetchusername(), batches = batches, countries = countries)
     else:
         return render_template("errors/not_authorised.html")
 
