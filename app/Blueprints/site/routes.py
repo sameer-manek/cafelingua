@@ -109,6 +109,8 @@ def deactivate_student(id):
             return redirect("/student")
         else:
             return "could not deactivate student"
+    else:
+        return render_template("errors/not_authorised.html")
 
 
 # admin pages

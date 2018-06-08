@@ -7,4 +7,5 @@ from app.models.key import Key
 from app.models.Module import Module
 from app.models.Student import Student
 from app.models.Subtest import Subtest
+from app.models.Country import Country
 from app.models.Test import Test

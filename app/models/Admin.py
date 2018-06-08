@@ -1,5 +1,4 @@
 from app.Blueprints import db
-from flask import session
 
 class Admin(db.Model):
     __tablename__ = "admin_master"
@@ -14,4 +13,3 @@ class Admin(db.Model):
         self.passwd = passwd
         self.first_name = fname
         self.last_name = lname
-

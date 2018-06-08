@@ -1,3 +1,4 @@
 from app import app
+from app import manager
 
-app.run(port=8000)
+manager.run()
