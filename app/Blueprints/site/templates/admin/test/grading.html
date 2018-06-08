@@ -1,11 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cafelingua : grade test</title>
-</head>
-<body>
+{% extends 'admin/master.html' %}
+{% block body %}
 
+
+<div class="GradingTest">
+  <div class="Title">
+    <h3><i class="fas fa-chevron-right"></i>Tests</h3>
+  </div>
+  <br><br>
+  <div class="Board">
+    <span class="button"><a href="/test/new"><i class="fas fa-plus-circle"></i><p>Add Test</p></a></span>
+    <span class="button"><a href="/test"><i class="fas fa-file-alt"></i><p>Browse Test</p></a></span>
+    <br><br><br>
+    <p class="sub1"><i class="fas fa-chevron-right"></i>Grade Test : {{test.name}}</p>
+    <br><br>
+    <form action="" method="post">
+        <table border="1" cellpadding="2">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Grade</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{student.name}}</td>
+                    <td><input type="text" placeholder="Enter Grade" name="grades[]" value="{% print student.grade if student.grade is not none %}" /></td>
+                </tr>
+                <tr>
+                    <td>{{student.name}}</td>
+                    <td><input type="text" placeholder="Enter Grade" name="grades[]" value="{% print student.grade if student.grade is not none %}" /></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button>submit grades</button>
+    </form>
+  </div>
+</div>
+
+
+<!--
     <h1>Tests</h1>
     <ul>
         <li><a href="/test">Browse tests</a></li>
@@ -32,7 +68,6 @@
             </tbody>
         </table>
         <button>submit grades</button>
-    </form>
+    </form> -->
 
-</body>
-</html>
+{% endblock %}
