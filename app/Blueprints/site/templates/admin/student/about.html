@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block body %}
-<h2>About {{student.fname}} {{student.lname}}</h2>
-<table>
+<!-- <h2>About {{student.fname}} {{student.lname}}</h2> -->
+<!-- <table>
     <tbody>
         <tr>
             <th>Name: </th>
@@ -31,17 +31,17 @@
 			<th>Date of Birth:</th>
 			<td>{{student.DOB}}</td>
 		</tr>
-		<!--		<tr>
+				<tr>
 	  <th>Picture</th>
 	  <td><img src={{ url_for("static", filename=student.picture) }}></td>
-	  </tr> -->
+	  </tr>
     </tbody>
-</table>
-<div>
+</table> -->
+<!-- <div>
 	<h1>Performance:</h1>
 	<svg width="960" height="500"></svg>
 
-</div>
+</div> -->
 
 <script>
 
@@ -73,7 +73,7 @@ window.onload = function () {
 			grade = []
 				d.forEach( function(i) {
 					console.log(i)
-						grade.push(i.grade) 
+						grade.push(i.grade)
 				})
 
   			x.domain(d.map(function(d) { return d.test; }));
