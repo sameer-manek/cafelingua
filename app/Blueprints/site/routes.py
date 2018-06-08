@@ -508,11 +508,6 @@ def updateTest(id):
     #students appearing in the test
     #test date
 
-<<<<<<< HEAD
-    return render_template("/admin/test/update.html", test = test, batches = batches, students = students)
-
-    
-=======
     return render_template("/admin/test/update.html", test = test, batches = batches, students = students, username = fetchusername())
 
 
@@ -522,4 +517,3 @@ def fetchusername():
 
     user = Admin.query.get(session['user'])
     return str(user.first_name + ' ' + user.last_name)
->>>>>>> ccce72fb0fc41889dd78721a1a391911201cb259
