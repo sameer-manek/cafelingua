@@ -105,7 +105,7 @@ def aboutStudent(id):
 
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
-    if session.get('user') and session.get('user') == "admin":
+    if session.get('user') and session.get('type') == "admin":
         # valid access
         from app.Blueprints import db
         from app.models.Student import Student
