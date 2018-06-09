@@ -96,12 +96,21 @@ def registerStudent():
 def aboutStudent(id):
     if session.get("user") == True and session['type'] == "admin":
         from app.models.Student import Student
-
+        from app.Blueprints import db
+        from app.models.Grades import Grades
+        from app.models.Test import Test
+        from app.models.Module import Module
+        all_tests = db.session.query(Grades).filter(Grades.student_id == id).all()
+        csv = "test,grade,module,date,name" + "\\n"
+        for i in all_tests:
+            test = db.session.query(Test).filter(Test.id == i.test_id).first()
+            module = db.session.query(Module).filter(Module.id == test.module).first()
+            csv = csv + str(test.name) + "," + str(i.grade) + "," + str(test.module) + "," + str(test.date) + "," + str(module.name) + "\\n"
         student = Student.query.get(id)
         if student == None:
             return "no record exists"
         else:
-            return render_template("admin/student/about.html", student = student, username = fetchusername())
+            return render_template("admin/student/about.html", student = student, username = fetchusername(), csv=csv)
 
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
@@ -366,14 +375,31 @@ def update_batch(batch_id):
 
     return ""
 
-@mod_site.route("/batch/about/<batch>")
-def aboutBatch(batch):
+@mod_site.route("/batch/about/<batch_id>")
+def aboutBatch(batch_id):
     if session.get("user") == True and session["type"] == "admin":
         from app.models.Course import Batch
         from app.Blueprints import db
+        from app.models.Module import Module
+        from app.models.Batch import Batch
+        from app.models.Test import Test
+        from app.models.Student import Student
+        from app.models.Grades import Grades
 
-        batch = Batch.query.get(batch)
-        return render_template("admin/batch/about.html", batch=batch, username = fetchusername())
+        batch = Batch.query.get(batch_id)
+        csv = "course,module,avg,max" + "\\n"
+        for course in batch.courses:
+            for module in course.modules:
+                for test in module.tests:
+                    # find average grade
+                    grades = list()
+                    for i in test.grades:
+                        grades.append(float(i.grade))
+                    i = sum(grades)/len(grades)
+                    csv = csv + str(course.name) + "," + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + "\\n"
+
+
+        return render_template("admin/batch/about.html", batch=batch, username = fetchusername(), csv=csv)
 
 
 

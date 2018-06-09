@@ -82,8 +82,9 @@
 // To change size, only change the height, width of the svg element above
 window.onload = function () {
 
-	text = "";
-	fetch("/api/student/scores/{{student.id}}", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph(); createGraph2()}) )
+	text = "{{ csv }}";
+	//text = "";
+	//fetch("/api/student/scores/{{student.id}}", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph(); createGraph2()}) )
 
 		function createGraph() {
 			var palette = ["#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0", "#B2912F", "#B276B2", "#DECF3F", "#F15854","#4D4D4D"]
@@ -200,9 +201,7 @@ window.onload = function () {
 				final_list = final_list + i + "," + avg + "\n"
 			})
 
-			console.log(final_list)
 			d = d3.csvParse(final_list)
-			console.log(d)
 
 			var g = svg.append("g")
     			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -230,7 +229,7 @@ window.onload = function () {
     			.data(d)
     			.enter().append("rect")
       			.attr("class", "bar")
-      			.attr("x", function(d) { console.log(d); return x(d.name); })
+      			.attr("x", function(d) { return x(d.name); })
       			.attr("y", function(d) { return y(d.avg); })
       			.attr("width", x.bandwidth())
       			.attr("height", function(d) { return height - y(d.avg); })
@@ -238,6 +237,9 @@ window.onload = function () {
 					return chooseFill(d.name) 
 				})
 	}
+
+	createGraph();
+	createGraph2();
 }
 
 
