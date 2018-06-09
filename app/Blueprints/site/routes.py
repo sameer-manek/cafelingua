@@ -102,15 +102,18 @@ def aboutStudent(id):
         from app.models.Module import Module
         all_tests = db.session.query(Grades).filter(Grades.student_id == id).all()
         csv = "test,grade,module,date,name" + "\\n"
+        maxMarks = 0
         for i in all_tests:
             test = db.session.query(Test).filter(Test.id == i.test_id).first()
             module = db.session.query(Module).filter(Module.id == test.module).first()
+            maxMarks = module.maxMarks
+            print("Maxmarks: " + str(maxMarks))
             csv = csv + str(test.name) + "," + str(i.grade) + "," + str(test.module) + "," + str(test.date) + "," + str(module.name) + "\\n"
         student = Student.query.get(id)
         if student == None:
             return "no record exists"
         else:
-            return render_template("admin/student/about.html", student = student, username = fetchusername(), csv=csv)
+            return render_template("admin/student/about.html", student = student, username = fetchusername(), csv=csv, maxMarks = maxMarks)
 
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
@@ -388,8 +391,10 @@ def aboutBatch(batch_id):
 
         batch = Batch.query.get(batch_id)
         csv = "course,module,avg,max" + "\\n"
+        maxMarks = 0
         for course in batch.courses:
             for module in course.modules:
+                maxMarks = module.maxMarks
                 for test in module.tests:
                     # find average grade
                     grades = list()
@@ -399,7 +404,7 @@ def aboutBatch(batch_id):
                     csv = csv + str(course.name) + "," + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + "\\n"
 
 
-        return render_template("admin/batch/about.html", batch=batch, username = fetchusername(), csv=csv)
+        return render_template("admin/batch/about.html", batch=batch, username = fetchusername(), csv=csv, maxMarks=maxMarks)
 
 
 

@@ -96,8 +96,10 @@ def mod_score(batch_id):
         from app.models.Grades import Grades
         batch = Batch.query.get(batch_id)
         csv = "module,avg,max" + escape("\n")
+        maxMarks = 0
         for course in batch.courses:
             for module in course.modules:
+                maxMarks = module.maxMarks
                 grades = list()
                 if (module.tests):
                     for test in module.tests:

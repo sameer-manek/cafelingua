@@ -88,7 +88,7 @@ window.onload = function () {
 				})
 
   			x.domain(d.map(function(d) { return d.module; }));
-  			y.domain([0, 9]);
+  			y.domain([0, {{maxMarks}}]);
 
   			g.append("g")
       			.attr("class", "axis axis--x")
