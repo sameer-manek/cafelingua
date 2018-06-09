@@ -53,15 +53,22 @@
 // Script for generating Student Performance chart
 // To change size, only change the height, width of the svg element above
 window.onload = function () {
-	var mod1 = "#e6550d";
-	var mod2 = "#756bb1";
-	var mod3 = "#31a354";
-
-	text = ""
-		fetch("/api/batch/{{batch.id}}/scores", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph()}) )
+	text = "{{csv}}";
 
 		function createGraph() {
-
+			var palette = ["#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0", "#B2912F", "#B276B2", "#DECF3F", "#F15854","#4D4D4D"]
+			var pal = {count: 0}
+			function chooseFill(name) {
+				if(pal[name] == undefined) {
+					pal[name] = palette[pal['count']]
+					pal['count'] += 1
+					pal['count'] = pal['count'] % 10
+					return pal[name]
+				}
+				else {
+					return pal[name]
+				}
+			}
 			d = d3.csvParse(text)
 
 				var svg = d3.select("#svg_test"),
@@ -105,7 +112,7 @@ window.onload = function () {
       			.attr("x", function(d) { return x(d.module); })
       			.attr("y", function(d) { return y(d.avg); })
       			.attr("width", x.bandwidth())
-				.attr("fill", (d) => { return mod1 })
+				.attr("fill", (d) => { return chooseFill(d.module) })
       			.attr("height", function(d) { return height - y(d.avg); });
 		}
 
