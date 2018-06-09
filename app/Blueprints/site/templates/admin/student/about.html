@@ -68,7 +68,8 @@
 		<br><br>
 		<div>
 			<p class="sub1"><i class="fas fa-chevron-right"></i>Performance :</p>
-			<svg width="960" height="500"></svg>
+			<svg width="960" height="500" id="chart1"></svg>
+			<svg width="960" height="500" id="chart2"></svg>
 		</div>
 	</div>
 </div>
@@ -80,18 +81,28 @@
 // Script for generating Student Performance chart
 // To change size, only change the height, width of the svg element above
 window.onload = function () {
-	var mod1 = "#e6550d";
-	var mod2 = "#756bb1";
-	var mod3 = "#31a354";
 
-	text = ""
-		fetch("/api/student/scores/{{student.id}}", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph()}) )
+	text = "";
+	fetch("/api/student/scores/{{student.id}}", {credentials: 'same-origin', method: 'GET'}).then( (res) => res.text().then( function (data) {text = data; createGraph(); createGraph2()}) )
 
 		function createGraph() {
+			var palette = ["#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0", "#B2912F", "#B276B2", "#DECF3F", "#F15854","#4D4D4D"]
+			var pal = {count: 0}
+			function chooseFill(name) {
+				if(pal[name] == undefined) {
+					pal[name] = palette[pal['count']]
+					pal['count'] += 1
+					pal['count'] = pal['count'] % 10
+					return pal[name]
+				}
+				else {
+					return pal[name]
+				}
+			}
 
 			d = d3.csvParse(text)
 
-				var svg = d3.select("svg"),
+			var svg = d3.select("#chart1"),
     		margin = {top: 20, right: 20, bottom: 30, left: 40},
     		width = +svg.attr("width") - margin.left - margin.right,
     		height = +svg.attr("height") - margin.top - margin.bottom;
@@ -104,7 +115,6 @@ window.onload = function () {
 
 			grade = []
 				d.forEach( function(i) {
-					console.log(i)
 						grade.push(i.grade)
 				})
 
@@ -134,21 +144,100 @@ window.onload = function () {
       			.attr("y", function(d) { return y(d.grade); })
       			.attr("width", x.bandwidth())
 				.attr("fill", (d) => {
-					if (d.module=="0") {
-						return mod1
-					}
-					if (d.module=="1") {
-						return mod2
-					}
-					if (d.module=="2") {
-						return mod3
-					}
-
-
-				}	)
-      		.attr("height", function(d) { return height - y(d.grade); });
+					return chooseFill(d.module)
+					})
+      			.attr("height", function(d) { return height - y(d.grade); });
 		}
 
+	function createGraph2() {
+			var palette = ["#B2912F", "#B276B2", "#DECF3F", "#F15854","#4D4D4D","#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0"]
+			var pal = {count: 0}
+			function chooseFill(name) {
+				if(pal[name] == undefined) {
+					pal[name] = palette[pal['count']]
+					pal['count'] += 1
+					pal['count'] = pal['count'] % 10
+					return pal[name]
+				}
+				else {
+					return pal[name]
+				}
+			}
+
+
+			d = d3.csvParse(text)
+
+			var svg = d3.select("#chart2"),
+    		margin = {top: 20, right: 20, bottom: 30, left: 40},
+    		width = +svg.attr("width") - margin.left - margin.right,
+    		height = +svg.attr("height") - margin.top - margin.bottom;
+
+			var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    		y = d3.scaleLinear().rangeRound([height, 0]);
+
+			function onlyUnique(value, index, self) { 
+    			return self.indexOf(value) === index;
+			};
+			modules = []
+				d.forEach( (i) => {
+					modules.push(i.name)
+				});
+			modules = modules.filter(onlyUnique)
+			final_list = "name,avg\n"
+
+			mod_count = 0
+			modules.forEach((i) => {
+				grade = 0
+				count = 0
+				d.forEach( (j) => {
+					if (j.name == i) {
+						grade = grade + Number(j.grade)
+						count = count + 1
+					}
+				})
+				mod_count += 1
+				avg = grade/count
+				final_list = final_list + i + "," + avg + "\n"
+			})
+
+			console.log(final_list)
+			d = d3.csvParse(final_list)
+			console.log(d)
+
+			var g = svg.append("g")
+    			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+  			x.domain(d.map(function(d) { return d.name; }));
+  			y.domain([0, 9]);
+
+  			g.append("g")
+      			.attr("class", "axis axis--x")
+      			.attr("transform", "translate(0," + height + ")")
+      			.call(d3.axisBottom(x));
+
+  			g.append("g")
+      			.attr("class", "axis axis--y")
+      			.call(d3.axisLeft(y).ticks(9))
+    			.append("text")
+      			.attr("transform", "rotate(-90)")
+      			.attr("y", 6)
+      			.attr("dy", "0.71em")
+      			.attr("text-anchor", "end")
+      			.text("Frequency");
+
+  			g.selectAll(".bar")
+    			.data(d)
+    			.enter().append("rect")
+      			.attr("class", "bar")
+      			.attr("x", function(d) { console.log(d); return x(d.name); })
+      			.attr("y", function(d) { return y(d.avg); })
+      			.attr("width", x.bandwidth())
+      			.attr("height", function(d) { return height - y(d.avg); })
+				.attr("fill", function(d) { 
+					return chooseFill(d.name) 
+				})
+	}
 }
 
 

@@ -67,15 +67,14 @@ def fetchGrades(studentId):
         from app.Blueprints import db
         from app.models.Grades import Grades
         from app.models.Test import Test
+        from app.models.Module import Module
         all_tests = db.session.query(Grades).filter(Grades.student_id == studentId).all()
-        csv = "test,grade,module,date" + escape("\n")
+        csv = "test,grade,module,date,name" + escape("\n")
         for i in all_tests:
             test = db.session.query(Test).filter(Test.id == i.test_id).first()
-            print(test.module)
-            csv = csv + str(test.name) + "," + str(i.grade) + "," + str(test.module) + "," + str(test.date) + escape("\n")
-            print(i.grade)
+            module = db.session.query(Module).filter(Module.id == test.module).first()
+            csv = csv + str(test.name) + "," + str(i.grade) + "," + str(test.module) + "," + str(test.date) + "," + str(module.name) + escape("\n")
         return str(csv)
-
     else:
         return "Error"
 
@@ -143,12 +142,12 @@ def mod_score(batch_id):
         for course in batch.courses:
             for module in course.modules:
                 grades = list()
-                for test in module.tests:
-                    # find average grade
-                    print(test)
-                    for i in test.grades:
-                        grades.append(float(i.grade))
-                i = sum(grades)/len(grades)
-                csv = csv + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + escape("\n")
+                if (module.tests):
+                    for test in module.tests:
+                        # find average grade
+                        for i in test.grades:
+                            grades.append(float(i.grade))
+                    i = sum(grades)/len(grades)
+                    csv = csv + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + escape("\n")
         
     return str(csv)
