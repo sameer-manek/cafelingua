@@ -27,10 +27,10 @@ class Student(db.Model):
     country = db.Column("country_id", db.Integer, db.ForeignKey("country.id"))
     comp_date = db.Column("comp_date", db.Date)
     state = db.Column("state", db.Integer)
-    link = db.relationship('Batch', secondary=map, backref=db.backref('students'), lazy='dynamic')
+    link = db.relationship('Batch', secondary=map, backref=db.backref('studs'), lazy='dynamic')
     grades = db.relationship("Grades", backref=db.backref("students"), primaryjoin=id == Grades.student_id)
 
-    def __init__(self, fname, lname, email, RFID, mobile, DOB, source):
+    def __init__(self, fname, lname, email, RFID, mobile, DOB, source, grade10, grade12, graduate, PG, NOB, country):
         passwd = fname+" "+lname
         picture = "default.jpg"
         state = 1
@@ -46,3 +46,9 @@ class Student(db.Model):
         self.DOB = DOB
         self.source = source
         self.state = state
+        self.grade10 = grade10
+        self.grade12 = grade12
+        self.graduate = graduate
+        self.PG = PG
+        self.NOB = NOB
+        self.country = country

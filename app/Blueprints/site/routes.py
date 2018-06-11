@@ -63,21 +63,32 @@ def accessStudent():
 @mod_site.route("/student/new", methods=["GET", "POST"])
 def registerStudent():
     if session.get("user") == True and session["type"] == "admin":
+        from app.Blueprints import db
+        from app.models.Batch import Batch
+        from app.models.Student import Student
+        from app.models.Country import Country
+
+        batches = Batch.query.all()
+        countries = Country.query.all()
         if request.method == "POST":
             for value in request.form:
                 if request.form[value] == '':
                     return render_template("admin/student/student_registration.html", msg="all fields are necessary")
-            from app.Blueprints import db
-            from app.models.Student import Student
 
-            newStudent = Student(request.form.get("fname"), request.form.get("lname"), request.form.get("email"),
-                                 request.form.get("RFID"), request.form.get("phone"), request.form.get("DOB"),
-                                 request.form.get("source"))
+            cnt = Country.query.get(request.form.get("country"))
+
+            newStudent = Student(fname = request.form.get("fname"), lname = request.form.get("lname"), email = request.form.get("email"),
+                                 RFID = request.form.get("RFID"), mobile = request.form.get("phone"), DOB = request.form.get("DOB"),
+                                 source = request.form.get("source"), grade10 = request.form.get('grade10'), grade12 = request.form.get('grade12'), graduate = request.form.get('graduate'), PG = request.form.get('PG'), NOB = request.form.get('NOB'), country = cnt.id)
+
             db.session.add(newStudent)
             db.session.commit()
+            batch = Batch.query.get(request.form.get('batch'))
+            batch.studs.append(newStudent)
             return render_template("admin/student/student_registration.html",
-                                   msg="student has been succefully registered!", username = fetchusername())
-        return render_template("admin/student/student_registration.html", username = fetchusername())
+                                   msg="student has been succefully registered!", username = fetchusername(), batches = batches, countries = countries)
+
+        return render_template("admin/student/student_registration.html", username = fetchusername(), batches = batches, countries = countries)
     else:
         return render_template("errors/not_authorised.html")
 
@@ -85,16 +96,28 @@ def registerStudent():
 def aboutStudent(id):
     if session.get("user") == True and session['type'] == "admin":
         from app.models.Student import Student
-
+        from app.Blueprints import db
+        from app.models.Grades import Grades
+        from app.models.Test import Test
+        from app.models.Module import Module
+        all_tests = db.session.query(Grades).filter(Grades.student_id == id).all()
+        csv = "test,grade,module,date,name" + "\\n"
+        maxMarks = 0
+        for i in all_tests:
+            test = db.session.query(Test).filter(Test.id == i.test_id).first()
+            module = db.session.query(Module).filter(Module.id == test.module).first()
+            maxMarks = module.maxMarks
+            print("Maxmarks: " + str(maxMarks))
+            csv = csv + str(test.name) + "," + str(i.grade) + "," + str(test.module) + "," + str(test.date) + "," + str(module.name) + "\\n"
         student = Student.query.get(id)
         if student == None:
             return "no record exists"
         else:
-            return render_template("admin/student/about.html", student = student, username = fetchusername())
+            return render_template("admin/student/about.html", student = student, username = fetchusername(), csv=csv, maxMarks = maxMarks)
 
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
-    if session.get('user') and session.get('user') == "admin":
+    if session.get('user') and session.get('type') == "admin":
         # valid access
         from app.Blueprints import db
         from app.models.Student import Student
@@ -355,14 +378,33 @@ def update_batch(batch_id):
 
     return ""
 
-@mod_site.route("/batch/about/<batch>")
-def aboutBatch(batch):
+@mod_site.route("/batch/about/<batch_id>")
+def aboutBatch(batch_id):
     if session.get("user") == True and session["type"] == "admin":
         from app.models.Course import Batch
         from app.Blueprints import db
+        from app.models.Module import Module
+        from app.models.Batch import Batch
+        from app.models.Test import Test
+        from app.models.Student import Student
+        from app.models.Grades import Grades
 
-        batch = Batch.query.get(batch)
-        return render_template("admin/batch/about.html", batch=batch, username = fetchusername())
+        batch = Batch.query.get(batch_id)
+        csv = "course,module,avg,max" + "\\n"
+        maxMarks = 0
+        for course in batch.courses:
+            for module in course.modules:
+                maxMarks = module.maxMarks
+                for test in module.tests:
+                    # find average grade
+                    grades = list()
+                    for i in test.grades:
+                        grades.append(float(i.grade))
+                    i = sum(grades)/len(grades)
+                    csv = csv + str(course.name) + "," + str(module.name) + "," + str(float(i)) + "," + str(float(module.maxMarks)) + "\\n"
+
+
+        return render_template("admin/batch/about.html", batch=batch, username = fetchusername(), csv=csv, maxMarks=maxMarks)
 
 
 

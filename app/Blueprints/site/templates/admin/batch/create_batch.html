@@ -34,12 +34,6 @@
             {% for course in courses %}
                 <label><input type="radio" name="course" value="{{course.id}}"><span class="checkmark"></span> {{course.name}}</label><br>
             {% endfor %}
-            <br>
-            <p style="font-size:18px;" class="sub1"><i class="fas fa-caret-right"></i>Select Students</p>
-            <br>
-            {% for student in students %}
-                <label><input type="checkbox" name="studentList[]" value="{{student.id}}"><span class="checkmark"></span> {{student.fname}} {{student.lname}}</label><br>
-            {% endfor %}
             <button><i class="fas fa-plus-circle"></i>Add</button>
           </form>
         </div>
@@ -49,7 +43,7 @@
 
   <script>
           $("#timepicker").timepicker({
-              timeFormat : 'H:m:s',
+              timeFormat : 'HH:mm:ss',
           })
   </script>
 {% endblock %}
