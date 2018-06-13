@@ -24,26 +24,27 @@
           <input type="text" id="datepicker" name="DOB" placeholder="Date of Birth"/><br>
           <input type="text" name="RFID" placeholder="RFID Number" /><br>
           <input type="text" name="source" placeholder="Source" /><br>
-          <input type="text" name="grade10" placeholder="marks in grade 10" /><br>
-          <input type="text" name="grade12" placeholder="marks in grade 12" /><br>
-          <input type="text" name="graduate" placeholder="marks in graduate" /><br>
-          <input type="text" name="PG" placeholder="marks in post graduate" /><br>
-          <input type="text" name="NOB" placeholder="no of backlog" /><br>
-          <p>select batch</p>
+          <input type="text" name="grade10" placeholder="Marks in Grade 10" /><br>
+          <input type="text" name="grade12" placeholder="Marks in Grade 12" /><br>
+          <input type="text" name="graduate" placeholder="Marks in Graduate" /><br>
+          <input type="text" name="PG" placeholder="Marks in Post Graduate" /><br>
+          <input type="text" name="NOB" placeholder="No. of Backlog" /><br><br>
+          <p>Select Batch</p>
           <select name="batch">
               {% for batch in batches %}
                 <option value="{{batch.id}}">{{batch.name}}</option>
               {% endfor %}
           </select>
-          <br>
-          <p>select target country</p>
-          <select name="country">
+          <br><br>
+          <p>Select Target Country(s)</p>
+          <select name="country[]" multiple>
               {% for country in countries %}
                 <option value="{{country.id}}">{{country.name}}</option>
               {% endfor %}
-          </select>
+          </select><br>
           <button><i class="fas fa-plus-circle"></i>Add</button>
         </form>
+        <br><br>
       </div>
     </div>
   </div>

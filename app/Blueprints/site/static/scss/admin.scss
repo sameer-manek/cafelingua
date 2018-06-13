@@ -1607,6 +1607,7 @@ $areaWidth: 75%;
     }
 
     .StudentForm{
+      margin-left: 20px;
       form{
         input{
 
@@ -1630,7 +1631,7 @@ $areaWidth: 75%;
           }
         }
 
-        textarea{
+        textarea,select{
           border: 1px solid $coffee-color;
           padding: 10px 0 10px 10px;
           width: 300px;
