@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, session, redirect, jsonify
-
+from flask import Blueprint, render_template, request, session, redirect, jsonify, current_app as application
+import json
 mod_site = Blueprint("site", __name__, template_folder="templates")
 
 
@@ -170,8 +170,12 @@ def loadAdminDashboard():
         from app.Blueprints import db
 
         user = Admin.query.filter_by(id=session["user"]).first()
+        with open(application.config['JSON_FILE'], 'r') as jsonFile:
+            data = json.load(jsonFile)
+        lastcard = data['lastcard']
+        jsonFile.close()
 
-        return render_template("admin/dashboard.html", usr=user, username = fetchusername())
+        return render_template("admin/dashboard.html", usr=user, username = fetchusername(), lastcard = lastcard)
     else:
         return redirect("/admin/login")
 

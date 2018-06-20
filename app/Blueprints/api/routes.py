@@ -1,4 +1,4 @@
-from flask import Blueprint, Response, jsonify, request, render_template, session, escape
+from flask import Blueprint, Response, jsonify, request, render_template, session, escape, current_app as application
 from time import strftime
 import json
 
@@ -20,6 +20,14 @@ def punch():
         from app.models.Student import Student
         if Student.query.filter_by(RFID = RFID).first() is not None:
             res = Attendance.punch(key=KEY, rfid=RFID, date = DATE, time = TIME)
+        with open(application.config['JSON_FILE'], 'r') as jsonFile:
+            data = json.load(jsonFile)
+        data['lastcard'] = RFID
+        jsonFile.close()
+
+        with open(application.config['JSON_FILE'], 'w') as jsonFile:
+            json.dump(data, jsonFile)
+        jsonFile.close()
     return jsonify(res)
 
 @mod_api.route("/batch/students/<batchid>", methods=["POST"])
