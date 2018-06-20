@@ -1,7 +1,16 @@
 {% extends 'admin/master.html' %}
-
 {% block body %}
-<script>
-	alert("{{lastcard}}")
-</script>
+
+  <div class="AdminDashboard">
+
+    <div class="Title">
+      <h3><i class="fas fa-chevron-right"></i>Dashboard</h3>
+    </div>
+    <br><br>
+
+    <div class="Board">
+			<p>{{lastcard}}</p>
+    </div>
+  </div>
+
 {% endblock %}
