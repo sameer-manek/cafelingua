@@ -75,11 +75,14 @@ def registerStudent():
                 if request.form[value] == '':
                     return render_template("admin/student/student_registration.html", msg="all fields are necessary")
 
-            cnt = Country.query.get(request.form.get("country"))
+            cnts = request.form.getlist("country[]")
+            cstr = ''
+            for cnt in cnts:
+                cstr += ' {},'.format(cnt)
 
             newStudent = Student(fname = request.form.get("fname"), lname = request.form.get("lname"), email = request.form.get("email"),
                                  RFID = request.form.get("RFID"), mobile = request.form.get("phone"), DOB = request.form.get("DOB"),
-                                 source = request.form.get("source"), grade10 = request.form.get('grade10'), grade12 = request.form.get('grade12'), graduate = request.form.get('graduate'), PG = request.form.get('PG'), NOB = request.form.get('NOB'), country = cnt.id)
+                                 source = request.form.get("source"), grade10 = request.form.get('grade10'), grade12 = request.form.get('grade12'), graduate = request.form.get('graduate'), PG = request.form.get('PG'), NOB = request.form.get('NOB'), country = cstr)
 
             db.session.add(newStudent)
             db.session.commit()

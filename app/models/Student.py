@@ -24,7 +24,7 @@ class Student(db.Model):
     graduate = db.Column("graduation", db.Float, nullable = True)
     PG = db.Column("post_graduate", db.Float, nullable = True)
     NOB = db.Column("NOB", db.Integer, nullable = True)
-    country = db.Column("country_id", db.Integer, db.ForeignKey("country.id"))
+    country = db.Column("target_countries", db.Text)
     comp_date = db.Column("comp_date", db.Date)
     state = db.Column("state", db.Integer)
     link = db.relationship('Batch', secondary=map, backref=db.backref('studs'), lazy='dynamic')
