@@ -8,7 +8,7 @@ mod_api = Blueprint('api', __name__)
 def punch():
     from app.models.key import Key
     from app.models.Attendance import Attendance
-
+    from app.Blueprints import write_key
     RFID = request.args.get("rfid")
     DATE = strftime("%Y-%m-%d")
     TIME = strftime("%H:%M:%S")
@@ -20,14 +20,8 @@ def punch():
         from app.models.Student import Student
         if Student.query.filter_by(RFID = RFID).first() is not None:
             res = Attendance.punch(key=KEY, rfid=RFID, date = DATE, time = TIME)
-        with open(application.config['JSON_FILE'], 'r') as jsonFile:
-            data = json.load(jsonFile)
-        data['lastcard'] = RFID
-        jsonFile.close()
-
-        with open(application.config['JSON_FILE'], 'w') as jsonFile:
-            json.dump(data, jsonFile)
-        jsonFile.close()
+    write_key(RFID)
+    
     return jsonify(res)
 
 @mod_api.route("/batch/students/<batchid>", methods=["POST"])

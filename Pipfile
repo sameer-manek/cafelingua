@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+click = "==6.7"
+itsdangerous = "==0.24"
+Flask = "==1.0.2"
+Flask-SQLAlchemy = "*"
+"Jinja2" = "==2.10"
+MarkupSafe = "==1.0"
+Werkzeug = "==0.14.1"
+flask-script = "*"
+flask-migrate = "*"
+pymysql = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
