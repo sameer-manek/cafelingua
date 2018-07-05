@@ -48,9 +48,13 @@ def accessStudent():
     if session.get("user") == True and session["type"] == "admin":
         from app.models.Student import Student
         from app.Blueprints import db
+        with open(application.config['JSON_FILE'], 'r') as jsonFile:
+            data = json.load(jsonFile)
+        lastcard = data['lastcard']
+        jsonFile.close()
 
         students = Student.query.filter_by(state=1)
-        return render_template("admin/student/browse.html", students=students, username = fetchusername())
+        return render_template("admin/student/browse.html", students=students, username = fetchusername(), lastcard = lastcard)
     else:
         return render_template("errors/not_authorised.html")
 
@@ -169,11 +173,7 @@ def loadAdminDashboard():
         from app.Blueprints import db
 
         user = Admin.query.filter_by(id=session["user"]).first()
-        with open(application.config['JSON_FILE'], 'r') as jsonFile:
-            data = json.load(jsonFile)
-        lastcard = data['lastcard']
-        jsonFile.close()
-
+       
         return render_template("admin/dashboard.html", usr=user, username = fetchusername(), lastcard = lastcard)
     else:
         return redirect("/admin/login")
