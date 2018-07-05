@@ -39,7 +39,7 @@
           <p>Select Target Country(s)</p>
           <select name="country[]" multiple>
               {% for country in countries %}
-                <option value="{{country.id}}">{{country.name}}</option>
+                <option value="{{country.name}}">{{country.name}}</option>
               {% endfor %}
           </select><br>
           <button><i class="fas fa-plus-circle"></i>Add</button>

@@ -41,12 +41,7 @@ def logout():
 
 @mod_site.route("/login", methods=["GET", "POST"])
 def loginpage():
-    if request.method == "POST":
-
-        return "logging you in"
-    else:
-        return render_template("login.html")
-
+    return "this is student login page" 
 
 @mod_site.route("/student")
 def accessStudent():
@@ -151,21 +146,22 @@ def accessAdmin():
 @mod_site.route("/admin/login", methods=["GET", "POST"])
 def adminLogin():
     if (request.method == "POST"):
+        email = request.form.get('email')
+        passwd = request.form.get('passwd')
+
         from app.models.Admin import Admin
         from app.Blueprints import db
 
-        user = Admin.query.filter_by(email=request.form.get('email')).first()
-        if user.passwd == request.form.get("passwd"):
-            session['user'] = user.id
+        admin = db.session.query(Admin).filter_by(email = email, passwd = passwd).first()
+        if admin is not None:
+            session['user'] = admin.id
             session['type'] = 'admin'
-            return redirect("/admin/dashboard")
+            return redirect("/student")
         else:
-            return render_template("admin/login.html", msg="wrong username or password")
-    if (session.get("user") == True and session['type'] == "admin"):
-        return redirect("admin/dashboard")
-    return render_template("admin/login.html")
-
-
+            return render_template("admin/login.html", message="invalid creds")
+    else:
+        return render_template("admin/login.html")
+ 
 @mod_site.route("/admin/dashboard")
 def loadAdminDashboard():
     if (session.get("user") == True and session['type'] == "admin"):
