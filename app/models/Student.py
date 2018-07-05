@@ -9,7 +9,7 @@ map = db.Table('batch_student', db.Column('batch_id', db.Integer, db.ForeignKey(
 class Student(db.Model):
     __tablename__ = "student_master"
     id = db.Column("id", db.Integer, primary_key = True)
-    RFID = db.Column("RFID", db.String)
+    RFID = db.Column("RFID", db.String(25))
     fname = db.Column("first_name", db.String(25))
     lname = db.Column("last_name", db.String(25))
     email = db.Column("email", db.String(100), unique = True)

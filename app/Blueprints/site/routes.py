@@ -117,6 +117,56 @@ def aboutStudent(id):
         else:
             return render_template("admin/student/about.html", student = student, username = fetchusername(), csv=csv, maxMarks = maxMarks)
 
+@mod_site.route("/student/<id>/update", methods = ['GET', 'POST'])
+def update_student(id):
+    from app.models.Student import Student
+    from app.Blueprints import db
+   
+    #fetch the student from the db
+    student = Student.query.get(id)
+    
+    if session.get("type") != "admin":
+        return render_template("errors/not_authorised.html")
+
+    if request.method == "GET":
+        return render_template("admin/student/update.html", student = student)
+    else:
+         name = request.form.get("name")
+         rfid = request.form.get("rfid")
+         email = request.form.get("email")
+         phone = request.form.get("phone")
+         grade10 = request.form.get("grade10")
+         grade12 = request.form.get("grade12")
+         grad = request.form.get("graduate")
+         pg = request.form.get("pg")
+         backlogs = request.form.get("backlogs")
+         
+         strs = name.split()
+         fname,lname = strs[0],strs[1]
+         
+         if fname is None or lname is None or email is None or rfid is None or phone is None or grade10 is None or grade12 is None or grad is None or pg is None or backlogs is None:
+             return render_template("admin/student/update.html", message = "please fill up all the fields", student = student)
+
+         if student is not None:
+             # edit student
+             student.fname = fname
+             student.lname = lname
+             student.RFID = rfid
+             student.email = email
+             student.mobile = phone
+             student.grade10 = grade10
+             student.grade12 = grade12
+             student.graduate = grad
+             student.PG = pg
+             student.NOB = backlogs
+
+             db.session.commit()
+             return render_template("admin/student/update.html", message="student has been updated", student = student)
+         else:
+             abort(404)
+
+   
+
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
     if session.get('user') and session.get('type') == "admin":
@@ -142,7 +192,7 @@ def deactivate_student(id):
 @mod_site.route("/admin", methods=["GET", "POST"])
 def accessAdmin():
     if session.get("user") == True and session["type"] == "admin":
-        return redirect("admin/dashboard")
+        return redirect("/student")
     else:
         return redirect("admin/login")
 

@@ -6,7 +6,53 @@
 </head>
 <body>
 
+	<h1>edit {{student.fname}}'s profile</h1>
+	{{message}}
+	{{var}}
+	<form method="POST" action="">
 
+	<table>
+		<tr>
+			<th>name</th>
+			<td><input type="text" name="name" value="{{student.fname + ' ' + student.lname}}"></td>
+		</tr>
+		<tr>
+			<th>RFID</th>
+			<td><input type="text" name="rfid" value="{{student.RFID}}"></td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td><input type="text" name="email" value="{{student.email}}"></td>
+		</tr>
+		<tr>
+			<th>phone</th>
+			<td><input type="text" name="phone" value="{{student.mobile}}"></td>
+		</tr>
+		<tr>
+			<th>10<sup>th</sup> Grade</th>
+			<td><input type="text" name="grade10" value="{{student.grade10}}"></td>
+		</tr>
+		<tr>
+			<th>12<sup>th</sup> Grade</th>
+			<td><input type="text" name="grade12" value="{{student.grade12}}"></td>
+		</tr>
+		<tr>
+			<th>Graduation %</th>
+			<td><input type="text" name="graduate" value="{{student.graduate}}"></td>
+		</tr>
+		<tr>
+			<th>PG %</th>
+			<td><input type="text" name="pg" value="{{student.PG}}"></td>
+		</tr>
+		<tr>
+			<th>Total Backlogs:</th>
+			<td><input type="text" name="backlogs" value="{{student.NOB}}"></td>
+		</tr>
+	</table>
+
+	<button> update student info  </button>
+	
+	</form>
 
 </body>
 </html>
