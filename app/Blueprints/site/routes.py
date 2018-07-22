@@ -66,6 +66,7 @@ def registerStudent():
         from app.models.Batch import Batch
         from app.models.Student import Student
         from app.models.Country import Country
+        from app.models.Installment import Installment
 
         batches = Batch.query.all()
         countries = Country.query.all()
@@ -84,6 +85,10 @@ def registerStudent():
                                  source = request.form.get("source"), grade10 = request.form.get('grade10'), grade12 = request.form.get('grade12'), graduate = request.form.get('graduate'), PG = request.form.get('PG'), NOB = request.form.get('NOB'), country = cstr)
 
             db.session.add(newStudent)
+            db.session.flush()
+            x, y = request.form.getlist("installments[]"), request.form.getlist("idates[]")
+            for i, v in enumerate(x):
+                inst = Installment(student = newStudent.id, date = y[i], amount = v)
             db.session.commit()
             batch = Batch.query.get(request.form.get('batch'))
             batch.studs.append(newStudent)

@@ -21,7 +21,7 @@
           <input type="text" placeholder="Last Name" name="lname" /><br>
           <input type="email" placeholder="Email" name="email" /><br>
           <input type="text" placeholder="Phone Number" name="phone" /><br>
-          <input type="text" id="datepicker" name="DOB" placeholder="Date of Birth"/><br>
+          <input type="text" class="datepicker" name="DOB" placeholder="Date of Birth"/><br>
           <input type="text" name="RFID" placeholder="RFID Number" /><br>
           <input type="text" name="source" placeholder="Source" /><br>
           <input type="text" name="grade10" placeholder="Marks in Grade 10" /><br>
@@ -42,6 +42,19 @@
                 <option value="{{country.name}}">{{country.name}}</option>
               {% endfor %}
           </select><br>
+          <br><br>
+          <p>student fees - select the number of installments</p>
+          <br>
+                <select id="installments" name="inst">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select> <br>
+
+                <div id="fees">
+                    <input type="text" name="installments[]" placeholder="installment amount" /> <input type="text" class="datepicker" name="idates[]" placeholder="installment date" /><br>
+                </div>
+          <br>
           <button><i class="fas fa-plus-circle"></i>Add</button>
         </form>
         <br><br>
@@ -51,12 +64,27 @@
 
   <script>
     $( function() {
-        $( "#datepicker" ).datepicker({
+        $( ".datepicker" ).datepicker({
               dateFormat : 'yy-mm-dd',
               changeMonth : true,
               changeYear : true,
-              yearRange : '1980:2005'
+              yearRange : '1980:'
           });
       } );
+
+      $("#installments").change(function(){
+          $("#fees").html("")
+          var d = '<input type="text" name="installments[]" placeholder="installment amount" /> <input type="text" class="datepicker" name="idates[]" placeholder="installment date" /><br>'
+          var x = parseInt($("#installments option:checked").val())
+          for(var i = 1; i<=x; i++){
+              $("#fees").append(d)
+          }
+          $( ".datepicker").datepicker({
+                   dateFormat : 'yy-mm-dd',
+                   changeMonth : true,
+                   changeYear : true,
+                   yearRange : '1980:2005'
+          });
+      })
   </script>
 {% endblock %}
