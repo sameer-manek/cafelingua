@@ -7,7 +7,7 @@ class Batch(db.Model):
     name = db.Column("batch_name", db.String(90))
     start_date = db.Column("start_date", db.Date)
     comp_date = db.Column("comp_date", db.Date)
-    day_byte = db.Column("day_byte", db.Integer)
+    day_byte = db.Column("day_byte", db.String(7))
     start_time = db.Column("start_time", db.Time)
     duration = db.Column("duration", db.Integer)
 
@@ -18,5 +18,3 @@ class Batch(db.Model):
         self.start_date = date
         self.start_time = start_time
         self.duration = duration
-
-

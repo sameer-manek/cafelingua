@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, redirect, jsonify, current_app as application
+from flask import Blueprint, render_template, request, session, redirect, jsonify, current_app as application, abort
 import json
 mod_site = Blueprint("site", __name__, template_folder="templates")
 
@@ -41,7 +41,7 @@ def logout():
 
 @mod_site.route("/login", methods=["GET", "POST"])
 def loginpage():
-    return "this is student login page" 
+    return "this is student login page"
 
 @mod_site.route("/student")
 def accessStudent():
@@ -121,10 +121,10 @@ def aboutStudent(id):
 def update_student(id):
     from app.models.Student import Student
     from app.Blueprints import db
-   
+
     #fetch the student from the db
     student = Student.query.get(id)
-    
+
     if session.get("type") != "admin":
         return render_template("errors/not_authorised.html")
 
@@ -140,10 +140,10 @@ def update_student(id):
          grad = request.form.get("graduate")
          pg = request.form.get("pg")
          backlogs = request.form.get("backlogs")
-         
+
          strs = name.split()
          fname,lname = strs[0],strs[1]
-         
+
          if fname is None or lname is None or email is None or rfid is None or phone is None or grade10 is None or grade12 is None or grad is None or pg is None or backlogs is None:
              return render_template("admin/student/update.html", message = "please fill up all the fields", student = student)
 
@@ -165,7 +165,7 @@ def update_student(id):
          else:
              abort(404)
 
-   
+
 
 @mod_site.route("/student/<id>/deactivate", methods = ['GET'])
 def deactivate_student(id):
@@ -215,7 +215,7 @@ def adminLogin():
             return render_template("admin/login.html", message="invalid creds")
     else:
         return render_template("admin/login.html")
- 
+
 @mod_site.route("/admin/dashboard")
 def loadAdminDashboard():
     if (session.get("user") == True and session['type'] == "admin"):
@@ -223,7 +223,7 @@ def loadAdminDashboard():
         from app.Blueprints import db
 
         user = Admin.query.filter_by(id=session["user"]).first()
-       
+
         return render_template("admin/dashboard.html", usr=user, username = fetchusername(), lastcard = lastcard)
     else:
         return redirect("/admin/login")
@@ -399,12 +399,9 @@ def createBatch():
             for ele in daylist:
                 arr[int(ele)] = 1
             daybyte = r = int("".join(map(str, arr)))
-            newsBatch = Batch(request.form.get("name"), daybyte, request.form.get("time"), request.form.get("duration"))
+            newsBatch = Batch(request.form.get("name"), str(daybyte), request.form.get("time"), request.form.get("duration"))
             db.session.add(newsBatch)
             db.session.commit()
-            for student in request.form.getlist("studentList[]"):
-                stud = Student.query.get(student)
-                newsBatch.students.append(stud)
             cr = Course.query.get(request.form.get("course"))
             newsBatch.courses.append(cr)
             db.session.commit()
@@ -420,7 +417,7 @@ def delete_batch(batch_id):
     if session.get("user") and session.get("type") == "admin":
         from app.models.Batch import Batch
         from app.Blueprints import db
-
+        # what should happen to the students
         b = Batch.query.get(batch_id)
         db.session.delete(b)
         db.session.commit()
@@ -428,8 +425,47 @@ def delete_batch(batch_id):
 
 @mod_site.route("/batch/update/<batch_id>", methods = ["GET", "POST"])
 def update_batch(batch_id):
+    from app.models.Admin import Admin
+    from app.models.Batch import Batch
+    from app.models.Course import Course
+    from app.Blueprints import db
+
+    if session.get("user") is None or session.get("type") != "admin":
+        abort(401)
+    user = Admin.query.get(session.get("user"))
+    if user is not None:
+        b = Batch.query.get(batch_id)
+        c = Course.query.all()
+
+        if request.method == "POST":
+            for field in request.form:
+                if request.form[field] == "":
+                    return render_template("admin/batch/update.html", courses=courses, msg="please fill up all the fields", username = fetchusername())
+            daylist = request.form.getlist("dayList[]")
+            arr = [0, 0, 0, 0, 0, 0, 0]
+            for ele in daylist:
+                arr[int(ele)] = 1
+            daybyte = r = int("".join(map(str, arr)))
+
+            batch = Batch.query.get(batch_id)
+            if batch is not None:
+                batch.courses = []
+                batch.name = request.form.get("name")
+                batch.start_time = request.form.get("time")
+                batch.duration = request.form.get("duration")
+                batch.day_byte = str(daybyte)
+                db.session.flush()
+                cr = Course.query.get(request.form.get("course"))
+                batch.courses.append(cr)
+                db.session.commit()
+                return render_template("admin/batch/update.html", username = fetchusername(), batch = b, courses = c, msg="the course has been updated successfully")
+
+        if b is not None:
+            return render_template("admin/batch/update.html", username = fetchusername(), batch = b, courses = c)
+    else: abort(401)
 
     return ""
+
 
 @mod_site.route("/batch/about/<batch_id>")
 def aboutBatch(batch_id):
